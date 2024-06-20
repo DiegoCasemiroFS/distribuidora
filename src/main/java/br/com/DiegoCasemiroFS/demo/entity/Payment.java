@@ -1,6 +1,5 @@
 package br.com.DiegoCasemiroFS.demo.entity;
 
-import br.com.DiegoCasemiroFS.demo.entity.enums.Group;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,13 +14,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+public class Payment {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String nome;
-  private String marca;
-  private Group grupo;
-  private Double valor;
+  private boolean boleto;
+  private boolean pix;
+  private boolean realizado;
+
 }

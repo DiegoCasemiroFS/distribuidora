@@ -6,5 +6,4 @@ public enum Group {
   OLEOS_VEGETAIS,
   OLEOS_ESSENCIAIS,
   LIQUIDOS;
-
 }
