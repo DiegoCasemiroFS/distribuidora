@@ -21,7 +21,7 @@ public class Pedido {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private UUID id;
+  private Long id;
 
   private Date dataPedido;
 
