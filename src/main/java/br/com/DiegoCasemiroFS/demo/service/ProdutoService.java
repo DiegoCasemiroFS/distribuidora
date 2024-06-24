@@ -17,16 +17,16 @@ public class ProdutoService {
         .orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 
-  public List<Produto> listProduct(){
+  public List<Produto> listProduto(){
     return produtoRepository.findAll();
   }
 
-  public Produto createProduct(Produto produto){
+  public Produto createProduto(Produto produto){
     produtoRepository.save(produto);
     return produto;
   }
 
-  public Produto updateProduct(Long id, Produto produto){
+  public Produto updateProduto(Long id, Produto produto){
     return produtoRepository.findById(id)
         .map(f -> {
           produto.setId(f.getId());
@@ -35,7 +35,7 @@ public class ProdutoService {
         }). orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 
-  public void deleteProduct(Long id){
+  public void deleteProduto(Long id){
     produtoRepository.findById(id)
         .map(f -> {
           produtoRepository.delete(f);

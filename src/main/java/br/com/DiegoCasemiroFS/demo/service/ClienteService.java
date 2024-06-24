@@ -17,16 +17,16 @@ public class ClienteService {
         .orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 
-  public List<Cliente> listClient(){
+  public List<Cliente> listCliente(){
     return clienteRepository.findAll();
   }
 
-  public Cliente creteClient(Cliente cliente){
+  public Cliente createCliente(Cliente cliente){
     clienteRepository.save(cliente);
     return cliente;
   }
 
-  public Cliente updateClient(Long id, Cliente cliente){
+  public Cliente updateCliente(Long id, Cliente cliente){
     return clienteRepository.findById(id)
         .map(f -> {
           cliente.setId(f.getId());
@@ -35,7 +35,7 @@ public class ClienteService {
         }).orElseThrow(()->new RuntimeException("Id não encontrado"));
   }
 
-  public void deleteClient(Long id){
+  public void deleteCliente(Long id){
     clienteRepository.findById(id)
         .map(f->{
           clienteRepository.delete(f);

@@ -25,22 +25,22 @@ public class ClienteController {
 
   @GetMapping
   public List<Cliente> findAll(){
-    return clienteService.listClient();
+    return clienteService.listCliente();
   }
 
   @PostMapping
-  public Cliente createClient(@RequestBody Cliente cliente){
-    return clienteService.creteClient(cliente);
+  public Cliente createCliente(@RequestBody Cliente cliente){
+    return clienteService.createCliente(cliente);
   }
 
   @PutMapping
-  public Cliente updateClient(@PathVariable Long id, @RequestBody Cliente cliente){
-    return clienteService.updateClient(id, cliente);
+  public Cliente updateCliente(@PathVariable Long id, @RequestBody Cliente cliente){
+    return clienteService.updateCliente(id, cliente);
   }
 
   @DeleteMapping
-  public void deleteClient(@PathVariable Long id){
-    clienteService.deleteClient(id);
+  public void deleteCliente(@PathVariable Long id){
+    clienteService.deleteCliente(id);
   }
 
 }
