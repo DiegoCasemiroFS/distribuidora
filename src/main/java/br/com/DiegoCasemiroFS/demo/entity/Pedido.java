@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import java.util.Date;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -14,18 +17,24 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Transactions {
+public class Pedido {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private UUID id;
 
-  private Integer compra;
+  private Date dataPedido;
 
-  private Integer venda;
+  @ManyToOne
+  @JoinColumn(name = "client_id")
+  private Cliente cliente;
 
-  private Date dataMovimentacao;
+  @ManyToOne
+  @JoinColumn(name = "suplier_id")
+  private Fornecedor suplier;
 
-  private Integer estoque;
+  @OneToOne
+  @JoinColumn(name = "payment_id")
+  private Pagamento pagamento;
 
 }
