@@ -43,4 +43,8 @@ public class ClienteService {
         }).orElseThrow(()->new RuntimeException("Id não encontrado"));
   }
 
+  public void fazerPedido(){
+    //chama transacao - chama pedido - chama produto
+  }
+
 }

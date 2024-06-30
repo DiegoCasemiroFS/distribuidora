@@ -22,6 +22,7 @@ public class PedidoService {
   }
 
   public Pedido createPedido(Pedido pedido){
+    //chamar produto
     pedidoRepository.save(pedido);
     return pedido;
   }
