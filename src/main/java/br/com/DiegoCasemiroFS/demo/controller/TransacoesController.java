@@ -1,6 +1,5 @@
 package br.com.DiegoCasemiroFS.demo.controller;
 
-import br.com.DiegoCasemiroFS.demo.entity.Pedido;
 import br.com.DiegoCasemiroFS.demo.entity.Transacoes;
 import br.com.DiegoCasemiroFS.demo.service.TransacoesService;
 import java.util.List;

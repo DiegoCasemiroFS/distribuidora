@@ -1,6 +1,7 @@
 package br.com.DiegoCasemiroFS.demo.controller;
 
 import br.com.DiegoCasemiroFS.demo.entity.Pedido;
+import br.com.DiegoCasemiroFS.demo.entity.Produto;
 import br.com.DiegoCasemiroFS.demo.service.PedidoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
