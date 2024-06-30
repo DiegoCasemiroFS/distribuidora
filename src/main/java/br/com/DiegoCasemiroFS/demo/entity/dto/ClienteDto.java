@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class ClientDto {
+public class ClienteDto {
   @NotNull
   private String endereco;
   @Email
