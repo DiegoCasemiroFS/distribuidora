@@ -12,6 +12,7 @@ import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Data
@@ -23,6 +24,7 @@ public class Pedido {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @CreationTimestamp
   private Date dataPedido;
 
   @ManyToOne

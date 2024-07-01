@@ -9,6 +9,7 @@ import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Data
@@ -24,6 +25,7 @@ public class Transacoes {
 
   private Integer venda;
 
+  @CreationTimestamp
   private Date dataMovimentacao;
 
   private Integer estoque;
