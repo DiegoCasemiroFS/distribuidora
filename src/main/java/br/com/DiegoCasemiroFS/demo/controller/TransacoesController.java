@@ -20,7 +20,7 @@ public class TransacoesController {
   @Autowired
   TransacoesService transacoesService;
 
-  @GetMapping
+  @GetMapping("/{id}")
   public Transacoes findById(@PathVariable Long id){
     return transacoesService.findById(id);
   }

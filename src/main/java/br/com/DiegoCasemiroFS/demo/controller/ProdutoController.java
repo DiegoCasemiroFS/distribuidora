@@ -20,7 +20,7 @@ public class ProdutoController {
   @Autowired
   ProdutoService produtoService;
 
-  @GetMapping
+  @GetMapping("/{id}")
   public Produto findById(Long id) {
     return produtoService.findById(id);
   }

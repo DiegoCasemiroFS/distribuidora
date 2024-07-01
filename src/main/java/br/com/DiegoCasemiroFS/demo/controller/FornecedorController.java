@@ -20,7 +20,7 @@ public class FornecedorController {
   @Autowired
   FornecedorService fornecedorService;
 
-  @GetMapping
+  @GetMapping("/{id}")
   public Fornecedor findById(@PathVariable Long id){
     return fornecedorService.findById(id);
   }

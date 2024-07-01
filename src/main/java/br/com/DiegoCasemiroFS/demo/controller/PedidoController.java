@@ -21,7 +21,7 @@ public class PedidoController {
   @Autowired
   PedidoService pedidoService;
 
-  @GetMapping
+  @GetMapping("/{id}")
   public Pedido findById(@PathVariable Long id){
     return pedidoService.findById(id);
   }

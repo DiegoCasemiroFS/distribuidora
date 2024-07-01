@@ -20,7 +20,7 @@ public class PagamentoController {
   @Autowired
   PagamentoService pagamentoService;
 
-  @GetMapping
+  @GetMapping("/{id}")
   public Pagamento findById(@PathVariable Long id){
     return pagamentoService.findById(id);
   }
