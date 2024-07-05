@@ -7,7 +7,7 @@
 
 ```mermaid
 classDiagram
-    class Customer {
+    class Client {
         +int id
         +String name
         +String address
@@ -36,7 +36,7 @@ classDiagram
     class Order {
         +int id
         +Date date
-        +Customer customer
+        +Client client
         +List<Product> products
         +double totalValue
         
@@ -67,9 +67,10 @@ classDiagram
         +recordTransaction(Order order, String type, double value)
     }
 
-    Customer "1" --> "*" Order
+    Client "1" --> "*" Order
     Order "*" --> "*" Product
     Product "1" --> "*" Supplier
     Order "1" --> "1" Transactions
+
 
 ```
