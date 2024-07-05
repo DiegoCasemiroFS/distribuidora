@@ -8,7 +8,7 @@
 ```mermaid
 classDiagram
     class Client {
-        +int id
+        +Long id
         +String name
         +String address
         +String email
@@ -21,7 +21,7 @@ classDiagram
     }
     
     class Supplier {
-        +int id
+        +Long id
         +String name
         +String address
         +String email
@@ -34,11 +34,12 @@ classDiagram
     }
     
     class Order {
-        +int id
+        +Long id
         +Date date
         +Client client
+        +Supplier supplier
         +List<Product> products
-        +double totalValue
+        +Double totalValue
         
         +calculateTotalValue(): double
         +addProduct(Product product)
@@ -47,29 +48,31 @@ classDiagram
     }
     
     class Product {
-        +int id
+        +Long id
         +String name
-        +String description
-        +double price
-        +int stockQuantity
+        +String brand
+        +String group
+        +Double price
+        +Integer stockQuantity
         
         +updateStock(int quantity)
         +updatePrice(double price)
     }
     
     class Transactions {
-        +int id
+        +Long id
         +Date date
         +String type
-        +double value
+        +Double value
         +Order order
         
         +recordTransaction(Order order, String type, double value)
     }
 
-    Client "1" --> "*" Order
-    Order "*" --> "*" Product
-    Product "1" --> "*" Supplier
+    Client "1" --> "n" Order
+    Supplier "1" --> "n" Order
+    Order "n" --> "n" Product
+    Product "1" --> "n" Supplier
     Order "1" --> "1" Transactions
 
 
