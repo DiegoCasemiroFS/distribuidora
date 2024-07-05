@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.demo.service;
 
-import br.com.DiegoCasemiroFS.demo.entity.Fornecedor;
+import br.com.DiegoCasemiroFS.demo.entity.Supplier;
 import br.com.DiegoCasemiroFS.demo.repository.FornecedorRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,26 +12,26 @@ public class FornecedorService {
   @Autowired
   FornecedorRepository fornecedorRepository;
 
-  public Fornecedor findById(Long id){
+  public Supplier findById(Long id){
     return fornecedorRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Id não econtrado"));
   }
 
-  public List<Fornecedor> listFornecedor(){
+  public List<Supplier> listFornecedor(){
     return fornecedorRepository.findAll();
   }
 
-  public Fornecedor createFornecedor(Fornecedor fornecedor){
-    fornecedorRepository.save(fornecedor);
-    return fornecedor;
+  public Supplier createFornecedor(Supplier supplier){
+    fornecedorRepository.save(supplier);
+    return supplier;
   }
 
-  public Fornecedor updateFornecedor(Long id, Fornecedor fornecedor){
+  public Supplier updateFornecedor(Long id, Supplier supplier){
     return fornecedorRepository.findById(id)
         .map(f -> {
-          fornecedor.setId(f.getId());
-          fornecedorRepository.save(fornecedor);
-          return fornecedor;
+          supplier.setId(f.getId());
+          fornecedorRepository.save(supplier);
+          return supplier;
         }).orElseThrow(() -> new RuntimeException("Id não econtrado"));
   }
 

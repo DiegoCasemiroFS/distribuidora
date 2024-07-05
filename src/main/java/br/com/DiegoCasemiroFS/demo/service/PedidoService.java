@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.demo.service;
 
-import br.com.DiegoCasemiroFS.demo.entity.Pedido;
+import br.com.DiegoCasemiroFS.demo.entity.Order;
 import br.com.DiegoCasemiroFS.demo.repository.PedidoRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,26 +12,26 @@ public class PedidoService {
   @Autowired
   PedidoRepository pedidoRepository;
 
-  public Pedido findById(Long id){
+  public Order findById(Long id){
     return pedidoRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 
-  public List<Pedido> listPedido(){
+  public List<Order> listPedido(){
     return pedidoRepository.findAll();
   }
 
-  public Pedido createPedido(Pedido pedido){
+  public Order createPedido(Order order){
     //chamar produto
-    pedidoRepository.save(pedido);
-    return pedido;
+    pedidoRepository.save(order);
+    return order;
   }
 
-  public Pedido updatePedido(Long id, Pedido pedido){
+  public Order updatePedido(Long id, Order order){
     return pedidoRepository.findById(id)
         .map(f -> {
-          pedido.setId(f.getId());
-          return pedido;
+          order.setId(f.getId());
+          return order;
         }).orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 

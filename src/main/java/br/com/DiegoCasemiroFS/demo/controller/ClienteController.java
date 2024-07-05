@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.demo.controller;
 
-import br.com.DiegoCasemiroFS.demo.entity.Cliente;
+import br.com.DiegoCasemiroFS.demo.entity.Client;
 import br.com.DiegoCasemiroFS.demo.service.ClienteService;
 import java.util.List;
 
@@ -22,23 +22,23 @@ public class ClienteController {
   private ClienteService clienteService;
 
   @GetMapping("/{id}")
-  public Cliente findById(@PathVariable Long id){
+  public Client findById(@PathVariable Long id){
     return clienteService.findById(id);
   }
 
   @GetMapping
-  public List<Cliente> findAll(){
+  public List<Client> findAll(){
     return clienteService.listCliente();
   }
 
   @PostMapping
-  public Cliente createCliente(@RequestBody Cliente cliente){
-    return clienteService.createCliente(cliente);
+  public Client createCliente(@RequestBody Client client){
+    return clienteService.createCliente(client);
   }
 
   @PutMapping
-  public Cliente updateCliente(@PathVariable Long id, @RequestBody Cliente cliente){
-    return clienteService.updateCliente(id, cliente);
+  public Client updateCliente(@PathVariable Long id, @RequestBody Client client){
+    return clienteService.updateCliente(id, client);
   }
 
   @DeleteMapping

@@ -1,7 +1,6 @@
 package br.com.DiegoCasemiroFS.demo.controller;
 
-import br.com.DiegoCasemiroFS.demo.entity.Pedido;
-import br.com.DiegoCasemiroFS.demo.entity.Produto;
+import br.com.DiegoCasemiroFS.demo.entity.Order;
 import br.com.DiegoCasemiroFS.demo.service.PedidoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +21,23 @@ public class PedidoController {
   PedidoService pedidoService;
 
   @GetMapping("/{id}")
-  public Pedido findById(@PathVariable Long id){
+  public Order findById(@PathVariable Long id){
     return pedidoService.findById(id);
   }
 
   @GetMapping
-  public List<Pedido> listPedido(){
+  public List<Order> listPedido(){
     return pedidoService.listPedido();
   }
 
   @PostMapping
-  public Pedido createPedido(@RequestBody Pedido pedido){
-    return pedidoService.createPedido(pedido);
+  public Order createPedido(@RequestBody Order order){
+    return pedidoService.createPedido(order);
   }
 
   @PutMapping
-  public Pedido updatePedido(@PathVariable Long id, @RequestBody Pedido pedido){
-    return pedidoService.updatePedido(id, pedido);
+  public Order updatePedido(@PathVariable Long id, @RequestBody Order order){
+    return pedidoService.updatePedido(id, order);
   }
 
   @DeleteMapping

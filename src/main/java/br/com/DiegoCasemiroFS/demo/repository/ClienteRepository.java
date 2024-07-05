@@ -1,8 +1,8 @@
 package br.com.DiegoCasemiroFS.demo.repository;
 
-import br.com.DiegoCasemiroFS.demo.entity.Cliente;
+import br.com.DiegoCasemiroFS.demo.entity.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClienteRepository extends JpaRepository<Cliente, Long> {
+public interface ClienteRepository extends JpaRepository<Client, Long> {
 
 }

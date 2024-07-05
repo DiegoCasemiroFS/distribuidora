@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.demo.controller;
 
-import br.com.DiegoCasemiroFS.demo.entity.Fornecedor;
+import br.com.DiegoCasemiroFS.demo.entity.Supplier;
 import br.com.DiegoCasemiroFS.demo.service.FornecedorService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,23 +21,23 @@ public class FornecedorController {
   FornecedorService fornecedorService;
 
   @GetMapping("/{id}")
-  public Fornecedor findById(@PathVariable Long id){
+  public Supplier findById(@PathVariable Long id){
     return fornecedorService.findById(id);
   }
 
   @GetMapping
-  public List<Fornecedor> listFornecedor(){
+  public List<Supplier> listFornecedor(){
     return fornecedorService.listFornecedor();
   }
 
   @PostMapping
-  public Fornecedor createFornecedor(@RequestBody Fornecedor fornecedor){
-    return fornecedorService.createFornecedor(fornecedor);
+  public Supplier createFornecedor(@RequestBody Supplier supplier){
+    return fornecedorService.createFornecedor(supplier);
   }
 
   @PutMapping
-  public Fornecedor updateFornecedor(@PathVariable Long id, @RequestBody Fornecedor fornecedor){
-    return fornecedorService.updateFornecedor(id, fornecedor);
+  public Supplier updateFornecedor(@PathVariable Long id, @RequestBody Supplier supplier){
+    return fornecedorService.updateFornecedor(id, supplier);
   }
 
   @DeleteMapping

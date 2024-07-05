@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.demo.service;
 
-import br.com.DiegoCasemiroFS.demo.entity.Cliente;
+import br.com.DiegoCasemiroFS.demo.entity.Client;
 import br.com.DiegoCasemiroFS.demo.repository.ClienteRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,26 +12,26 @@ public class ClienteService {
   @Autowired
   ClienteRepository clienteRepository;
 
-  public Cliente findById(Long id){
+  public Client findById(Long id){
     return clienteRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 
-  public List<Cliente> listCliente(){
+  public List<Client> listCliente(){
     return clienteRepository.findAll();
   }
 
-  public Cliente createCliente(Cliente cliente){
-    clienteRepository.save(cliente);
-    return cliente;
+  public Client createCliente(Client client){
+    clienteRepository.save(client);
+    return client;
   }
 
-  public Cliente updateCliente(Long id, Cliente cliente){
+  public Client updateCliente(Long id, Client client){
     return clienteRepository.findById(id)
         .map(f -> {
-          cliente.setId(f.getId());
-          clienteRepository.save(cliente);
-          return cliente;
+          client.setId(f.getId());
+          clienteRepository.save(client);
+          return client;
         }).orElseThrow(()->new RuntimeException("Id não encontrado"));
   }
 

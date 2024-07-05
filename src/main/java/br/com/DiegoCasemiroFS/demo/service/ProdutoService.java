@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.demo.service;
 
-import br.com.DiegoCasemiroFS.demo.entity.Produto;
+import br.com.DiegoCasemiroFS.demo.entity.Product;
 import br.com.DiegoCasemiroFS.demo.repository.ProdutoRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,26 +12,26 @@ public class ProdutoService {
   @Autowired
   ProdutoRepository produtoRepository;
 
-  public Produto findById(Long id){
+  public Product findById(Long id){
     return produtoRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 
-  public List<Produto> listProduto(){
+  public List<Product> listProduto(){
     return produtoRepository.findAll();
   }
 
-  public Produto createProduto(Produto produto){
-    produtoRepository.save(produto);
-    return produto;
+  public Product createProduto(Product product){
+    produtoRepository.save(product);
+    return product;
   }
 
-  public Produto updateProduto(Long id, Produto produto){
+  public Product updateProduto(Long id, Product product){
     return produtoRepository.findById(id)
         .map(f -> {
-          produto.setId(f.getId());
-          produtoRepository.save(produto);
-          return produto;
+          product.setId(f.getId());
+          produtoRepository.save(product);
+          return product;
         }). orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 
