@@ -16,7 +16,7 @@ classDiagram
         +List<Order> orders
         
         +createOrder(Order order)
-        +updateDetails(String name, String address, String email, String phone)
+        +updateClient(String name, String address, String email, String phone)
         +listOrders(): List<Order>
     }
     
