@@ -1,7 +1,7 @@
 package br.com.DiegoCasemiroFS.demo.controller;
 
 import br.com.DiegoCasemiroFS.demo.entity.Product;
-import br.com.DiegoCasemiroFS.demo.service.ProdutoService;
+import br.com.DiegoCasemiroFS.demo.service.ProductService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,30 +18,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProdutoController {
 
   @Autowired
-  ProdutoService produtoService;
+  ProductService productService;
 
   @GetMapping("/{id}")
   public Product findById(Long id) {
-    return produtoService.findById(id);
+    return productService.findById(id);
   }
 
   @GetMapping
   public List<Product> findAll() {
-    return produtoService.listProduto();
+    return productService.listProduto();
   }
 
   @PostMapping
   public Product createProduto(@RequestBody Product product) {
-    return produtoService.createProduto(product);
+    return productService.createProduto(product);
   }
 
   @PutMapping
   public Product updateProduto(@PathVariable Long id, @RequestBody Product product) {
-    return produtoService.updateProduto(id, product);
+    return productService.updateProduto(id, product);
   }
 
   @DeleteMapping
   public void deleteProduto(@PathVariable Long id) {
-    produtoService.deleteProduto(id);
+    productService.deleteProduto(id);
   }
 }

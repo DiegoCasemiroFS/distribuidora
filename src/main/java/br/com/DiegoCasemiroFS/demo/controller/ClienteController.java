@@ -1,7 +1,7 @@
 package br.com.DiegoCasemiroFS.demo.controller;
 
 import br.com.DiegoCasemiroFS.demo.entity.Client;
-import br.com.DiegoCasemiroFS.demo.service.ClienteService;
+import br.com.DiegoCasemiroFS.demo.service.ClientService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,31 +19,31 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClienteController {
 
   @Autowired
-  private ClienteService clienteService;
+  private ClientService clientService;
 
   @GetMapping("/{id}")
   public Client findById(@PathVariable Long id){
-    return clienteService.findById(id);
+    return clientService.findById(id);
   }
 
   @GetMapping
   public List<Client> findAll(){
-    return clienteService.listCliente();
+    return clientService.listCliente();
   }
 
   @PostMapping
   public Client createCliente(@RequestBody Client client){
-    return clienteService.createCliente(client);
+    return clientService.createCliente(client);
   }
 
   @PutMapping
   public Client updateCliente(@PathVariable Long id, @RequestBody Client client){
-    return clienteService.updateCliente(id, client);
+    return clientService.updateCliente(id, client);
   }
 
   @DeleteMapping
   public void deleteCliente(@PathVariable Long id){
-    clienteService.deleteCliente(id);
+    clientService.deleteCliente(id);
   }
 
 }

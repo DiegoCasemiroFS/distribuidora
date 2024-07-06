@@ -1,7 +1,7 @@
 package br.com.DiegoCasemiroFS.demo.controller;
 
-import br.com.DiegoCasemiroFS.demo.entity.Transactions;
-import br.com.DiegoCasemiroFS.demo.service.TransacoesService;
+import br.com.DiegoCasemiroFS.demo.entity.Transaction;
+import br.com.DiegoCasemiroFS.demo.service.TransactionService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,31 +18,31 @@ import org.springframework.web.bind.annotation.RestController;
 public class TransacoesController {
 
   @Autowired
-  TransacoesService transacoesService;
+  TransactionService transactionService;
 
   @GetMapping("/{id}")
-  public Transactions findById(@PathVariable Long id){
-    return transacoesService.findById(id);
+  public Transaction findById(@PathVariable Long id){
+    return transactionService.findById(id);
   }
 
   @GetMapping
-  public List<Transactions> listTransacoes(){
-    return transacoesService.listTransacoes();
+  public List<Transaction> listTransacoes(){
+    return transactionService.listTransacoes();
   }
 
   @PostMapping
-  public Transactions createTransacoes(@RequestBody Transactions transactions){
-    return transacoesService.createTransacoes(transactions);
+  public Transaction createTransacoes(@RequestBody Transaction transaction){
+    return transactionService.createTransacoes(transaction);
   }
 
   @PutMapping
-  public Transactions updateTransacoes(@PathVariable Long id, @RequestBody Transactions transactions){
-    return transacoesService.updateTransacoes(id, transactions);
+  public Transaction updateTransacoes(@PathVariable Long id, @RequestBody Transaction transaction){
+    return transactionService.updateTransacoes(id, transaction);
   }
 
   @DeleteMapping
   public void deleteTransacoes(@PathVariable Long id){
-    transacoesService.deleteTransacoes(id);
+    transactionService.deleteTransacoes(id);
   }
 
 }

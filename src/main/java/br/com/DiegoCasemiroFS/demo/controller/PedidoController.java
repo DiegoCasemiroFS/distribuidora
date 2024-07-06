@@ -1,7 +1,7 @@
 package br.com.DiegoCasemiroFS.demo.controller;
 
 import br.com.DiegoCasemiroFS.demo.entity.Order;
-import br.com.DiegoCasemiroFS.demo.service.PedidoService;
+import br.com.DiegoCasemiroFS.demo.service.OrderService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,30 +18,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class PedidoController {
 
   @Autowired
-  PedidoService pedidoService;
+  OrderService orderService;
 
   @GetMapping("/{id}")
   public Order findById(@PathVariable Long id){
-    return pedidoService.findById(id);
+    return orderService.findById(id);
   }
 
   @GetMapping
   public List<Order> listPedido(){
-    return pedidoService.listPedido();
+    return orderService.listPedido();
   }
 
   @PostMapping
   public Order createPedido(@RequestBody Order order){
-    return pedidoService.createPedido(order);
+    return orderService.createPedido(order);
   }
 
   @PutMapping
   public Order updatePedido(@PathVariable Long id, @RequestBody Order order){
-    return pedidoService.updatePedido(id, order);
+    return orderService.updatePedido(id, order);
   }
 
   @DeleteMapping
   public void deletePedido(@PathVariable Long id){
-    pedidoService.deletePedido(id);
+    orderService.deletePedido(id);
   }
 }
