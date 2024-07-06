@@ -27,21 +27,21 @@ public class SupplierController {
 
   @GetMapping
   public List<Supplier> listFornecedor(){
-    return supplierService.listFornecedor();
+    return supplierService.listAllSuppliers();
   }
 
   @PostMapping
   public Supplier createFornecedor(@RequestBody Supplier supplier){
-    return supplierService.createFornecedor(supplier);
+    return supplierService.createSupplier(supplier);
   }
 
   @PutMapping
   public Supplier updateFornecedor(@PathVariable Long id, @RequestBody Supplier supplier){
-    return supplierService.updateFornecedor(id, supplier);
+    return supplierService.updateSupplier(id, supplier);
   }
 
   @DeleteMapping
   public void deleteFornecedor(@PathVariable Long id){
-    supplierService.deleteFornecedor(id);
+    supplierService.deleteSupplier(id);
   }
 }

@@ -27,21 +27,21 @@ public class ProductController {
 
   @GetMapping
   public List<Product> findAll() {
-    return productService.listProduto();
+    return productService.findAllProducts();
   }
 
   @PostMapping
   public Product createProduto(@RequestBody Product product) {
-    return productService.createProduto(product);
+    return productService.createProduct(product);
   }
 
   @PutMapping
   public Product updateProduto(@PathVariable Long id, @RequestBody Product product) {
-    return productService.updateProduto(id, product);
+    return productService.updateProduct(id, product);
   }
 
   @DeleteMapping
   public void deleteProduto(@PathVariable Long id) {
-    productService.deleteProduto(id);
+    productService.deleteProduct(id);
   }
 }

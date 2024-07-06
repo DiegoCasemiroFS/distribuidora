@@ -2,16 +2,10 @@ package br.com.DiegoCasemiroFS.demo.controller;
 
 import br.com.DiegoCasemiroFS.demo.entity.Order;
 import br.com.DiegoCasemiroFS.demo.service.OrderService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("v1/api/pedido")
@@ -26,22 +20,17 @@ public class OrderController {
   }
 
   @GetMapping
-  public List<Order> listPedido(){
-    return orderService.listPedido();
+  public List<Order> findAllOrders(){
+    return orderService.findAllOrders();
   }
 
   @PostMapping
-  public Order createPedido(@RequestBody Order order){
-    return orderService.createPedido(order);
-  }
-
-  @PutMapping
-  public Order updatePedido(@PathVariable Long id, @RequestBody Order order){
-    return orderService.updatePedido(id, order);
+  public Order createOrder(@RequestBody Order order){
+    return orderService.createOrder(order);
   }
 
   @DeleteMapping
-  public void deletePedido(@PathVariable Long id){
-    orderService.deletePedido(id);
+  public void deleteOrder(@PathVariable Long id){
+    orderService.deleteOrder(id);
   }
 }

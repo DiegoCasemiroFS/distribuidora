@@ -17,16 +17,16 @@ public class SupplierService {
         .orElseThrow(() -> new RuntimeException("Id não econtrado"));
   }
 
-  public List<Supplier> listFornecedor(){
+  public List<Supplier> listAllSuppliers(){
     return supplierRepository.findAll();
   }
 
-  public Supplier createFornecedor(Supplier supplier){
+  public Supplier createSupplier(Supplier supplier){
     supplierRepository.save(supplier);
     return supplier;
   }
 
-  public Supplier updateFornecedor(Long id, Supplier supplier){
+  public Supplier updateSupplier(Long id, Supplier supplier){
     return supplierRepository.findById(id)
         .map(f -> {
           supplier.setId(f.getId());
@@ -35,7 +35,7 @@ public class SupplierService {
         }).orElseThrow(() -> new RuntimeException("Id não econtrado"));
   }
 
-  public void deleteFornecedor(Long id){
+  public void deleteSupplier(Long id){
     supplierRepository.findById(id)
         .map(f -> {
           supplierRepository.delete(f);

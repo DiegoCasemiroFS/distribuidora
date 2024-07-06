@@ -17,16 +17,16 @@ public class TransactionService {
         .orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 
-  public List<Transaction> listTransacoes(){
+  public List<Transaction> findAllTransactions(){
     return transactionRepository.findAll();
   }
 
-  public Transaction createTransacoes(Transaction transaction){
+  public Transaction createTransaction(Transaction transaction){
     transactionRepository.save(transaction);
     return transaction;
   }
 
-  public Transaction updateTransacoes(Long id, Transaction transaction){
+  public Transaction updateTransaction(Long id, Transaction transaction){
     return transactionRepository.findById(id)
         .map(f -> {
           transaction.setId(f.getId());
@@ -34,7 +34,7 @@ public class TransactionService {
         }).orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 
-  public void deleteTransacoes(Long id){
+  public void deleteTransaction(Long id){
      transactionRepository.findById(id)
         .map(f -> {
           transactionRepository.delete(f);

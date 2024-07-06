@@ -32,7 +32,7 @@ public class ClientController {
   }
 
   @GetMapping
-  public List<Client> findAll(){
+  public List<Client> findAllClients(){
     return clientService.findAllClients();
   }
 
@@ -43,7 +43,7 @@ public class ClientController {
 
   @PostMapping("/{order}")
   public Order createOrder(@RequestBody Order order){
-    return orderService.createPedido(order);
+    return orderService.createOrder(order);
   }
 
   @PutMapping

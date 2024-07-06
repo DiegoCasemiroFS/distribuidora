@@ -27,22 +27,22 @@ public class TransactionController {
 
   @GetMapping
   public List<Transaction> listTransacoes(){
-    return transactionService.listTransacoes();
+    return transactionService.findAllTransactions();
   }
 
   @PostMapping
   public Transaction createTransacoes(@RequestBody Transaction transaction){
-    return transactionService.createTransacoes(transaction);
+    return transactionService.createTransaction(transaction);
   }
 
   @PutMapping
   public Transaction updateTransacoes(@PathVariable Long id, @RequestBody Transaction transaction){
-    return transactionService.updateTransacoes(id, transaction);
+    return transactionService.updateTransaction(id, transaction);
   }
 
   @DeleteMapping
   public void deleteTransacoes(@PathVariable Long id){
-    transactionService.deleteTransacoes(id);
+    transactionService.deleteTransaction(id);
   }
 
 }
