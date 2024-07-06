@@ -1,9 +1,7 @@
 package br.com.DiegoCasemiroFS.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -28,5 +26,6 @@ public class Transaction {
 
   private Double value;
 
+  @OneToOne
   private Order order;
 }
