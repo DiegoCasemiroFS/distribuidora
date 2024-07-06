@@ -1,6 +1,7 @@
 package br.com.DiegoCasemiroFS.demo.service;
 
 import br.com.DiegoCasemiroFS.demo.entity.Client;
+import br.com.DiegoCasemiroFS.demo.entity.dto.ClientDTO;
 import br.com.DiegoCasemiroFS.demo.repository.ClientRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +18,17 @@ public class ClientService {
         .orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 
-  public List<Client> listCliente(){
+  public List<Client> findAllClients(){
     return clientRepository.findAll();
   }
 
-  public Client createCliente(Client client){
+  public Client createClient(Client client){
     clientRepository.save(client);
     return client;
   }
 
-  public Client updateCliente(Long id, Client client){
+  //o metodo tem que retornar um Client ou ClientDTO ?
+  public Client updateClient(Long id, Client client){
     return clientRepository.findById(id)
         .map(f -> {
           client.setId(f.getId());
@@ -35,16 +37,12 @@ public class ClientService {
         }).orElseThrow(()->new RuntimeException("Id não encontrado"));
   }
 
-  public void deleteCliente(Long id){
+  public void deleteClient(Long id){
     clientRepository.findById(id)
         .map(f->{
           clientRepository.delete(f);
           return Void.TYPE;
         }).orElseThrow(()->new RuntimeException("Id não encontrado"));
-  }
-
-  public void fazerPedido(){
-    //chama transacao - chama pedido - chama produto
   }
 
 }
