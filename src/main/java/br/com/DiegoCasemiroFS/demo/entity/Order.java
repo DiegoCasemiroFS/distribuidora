@@ -1,12 +1,8 @@
 package br.com.DiegoCasemiroFS.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,10 +29,12 @@ public class Order {
   private Client client;
 
   @ManyToOne
-  @JoinColumn(name = "suplier_id")
+  @JoinColumn(name = "supplier_id")
   private Supplier supplier;
 
-  private List<Product> products;
+  @ManyToMany
+  @JoinColumn(name = "product_list")
+  private List<Product> products = new ArrayList<>();
 
   private Double totalValue;
 }
