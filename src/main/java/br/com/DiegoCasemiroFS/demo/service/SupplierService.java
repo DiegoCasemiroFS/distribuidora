@@ -1,7 +1,7 @@
 package br.com.DiegoCasemiroFS.demo.service;
 
 import br.com.DiegoCasemiroFS.demo.entity.Supplier;
-import br.com.DiegoCasemiroFS.demo.repository.FornecedorRepository;
+import br.com.DiegoCasemiroFS.demo.repository.SupplierRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,35 +10,35 @@ import org.springframework.stereotype.Service;
 public class SupplierService {
 
   @Autowired
-  FornecedorRepository fornecedorRepository;
+  SupplierRepository supplierRepository;
 
   public Supplier findById(Long id){
-    return fornecedorRepository.findById(id)
+    return supplierRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Id não econtrado"));
   }
 
   public List<Supplier> listFornecedor(){
-    return fornecedorRepository.findAll();
+    return supplierRepository.findAll();
   }
 
   public Supplier createFornecedor(Supplier supplier){
-    fornecedorRepository.save(supplier);
+    supplierRepository.save(supplier);
     return supplier;
   }
 
   public Supplier updateFornecedor(Long id, Supplier supplier){
-    return fornecedorRepository.findById(id)
+    return supplierRepository.findById(id)
         .map(f -> {
           supplier.setId(f.getId());
-          fornecedorRepository.save(supplier);
+          supplierRepository.save(supplier);
           return supplier;
         }).orElseThrow(() -> new RuntimeException("Id não econtrado"));
   }
 
   public void deleteFornecedor(Long id){
-    fornecedorRepository.findById(id)
+    supplierRepository.findById(id)
         .map(f -> {
-          fornecedorRepository.delete(f);
+          supplierRepository.delete(f);
           return Void.TYPE;
         }).orElseThrow(() -> new RuntimeException("Id não econtrado"));
   }

@@ -1,7 +1,7 @@
 package br.com.DiegoCasemiroFS.demo.service;
 
 import br.com.DiegoCasemiroFS.demo.entity.Order;
-import br.com.DiegoCasemiroFS.demo.repository.PedidoRepository;
+import br.com.DiegoCasemiroFS.demo.repository.OrderRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,25 +10,25 @@ import org.springframework.stereotype.Service;
 public class OrderService {
 
   @Autowired
-  PedidoRepository pedidoRepository;
+  OrderRepository orderRepository;
 
   public Order findById(Long id){
-    return pedidoRepository.findById(id)
+    return orderRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 
   public List<Order> listPedido(){
-    return pedidoRepository.findAll();
+    return orderRepository.findAll();
   }
 
   public Order createPedido(Order order){
     //chamar produto
-    pedidoRepository.save(order);
+    orderRepository.save(order);
     return order;
   }
 
   public Order updatePedido(Long id, Order order){
-    return pedidoRepository.findById(id)
+    return orderRepository.findById(id)
         .map(f -> {
           order.setId(f.getId());
           return order;
@@ -36,9 +36,9 @@ public class OrderService {
   }
 
   public void deletePedido(Long id){
-    pedidoRepository.findById(id)
+    orderRepository.findById(id)
         .map(f -> {
-          pedidoRepository.delete(f);
+          orderRepository.delete(f);
           return Void.TYPE;
         }).orElseThrow(() -> new RuntimeException("Id não econtrado"));
   }
