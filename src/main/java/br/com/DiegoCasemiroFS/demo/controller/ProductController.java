@@ -1,7 +1,7 @@
 package br.com.DiegoCasemiroFS.demo.controller;
 
-import br.com.DiegoCasemiroFS.demo.entity.Order;
-import br.com.DiegoCasemiroFS.demo.service.OrderService;
+import br.com.DiegoCasemiroFS.demo.entity.Product;
+import br.com.DiegoCasemiroFS.demo.service.ProductService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,34 +14,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("v1/api/pedido")
-public class PedidoController {
+@RequestMapping("v1/api/produto")
+public class ProductController {
 
   @Autowired
-  OrderService orderService;
+  ProductService productService;
 
   @GetMapping("/{id}")
-  public Order findById(@PathVariable Long id){
-    return orderService.findById(id);
+  public Product findById(Long id) {
+    return productService.findById(id);
   }
 
   @GetMapping
-  public List<Order> listPedido(){
-    return orderService.listPedido();
+  public List<Product> findAll() {
+    return productService.listProduto();
   }
 
   @PostMapping
-  public Order createPedido(@RequestBody Order order){
-    return orderService.createPedido(order);
+  public Product createProduto(@RequestBody Product product) {
+    return productService.createProduto(product);
   }
 
   @PutMapping
-  public Order updatePedido(@PathVariable Long id, @RequestBody Order order){
-    return orderService.updatePedido(id, order);
+  public Product updateProduto(@PathVariable Long id, @RequestBody Product product) {
+    return productService.updateProduto(id, product);
   }
 
   @DeleteMapping
-  public void deletePedido(@PathVariable Long id){
-    orderService.deletePedido(id);
+  public void deleteProduto(@PathVariable Long id) {
+    productService.deleteProduto(id);
   }
 }
