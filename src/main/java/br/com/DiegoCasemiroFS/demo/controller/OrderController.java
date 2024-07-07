@@ -1,7 +1,9 @@
 package br.com.DiegoCasemiroFS.demo.controller;
 
+import br.com.DiegoCasemiroFS.demo.controller.dto.OrderDTO;
 import br.com.DiegoCasemiroFS.demo.entity.Order;
 import br.com.DiegoCasemiroFS.demo.service.OrderService;
+import br.com.DiegoCasemiroFS.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,9 @@ public class OrderController {
   @Autowired
   OrderService orderService;
 
+  @Autowired
+  ProductService productService;
+
   @GetMapping("/{id}")
   public Order findById(@PathVariable Long id){
     return orderService.findById(id);
@@ -25,7 +30,7 @@ public class OrderController {
   }
 
   @PostMapping
-  public Order createOrder(@RequestBody Order order){
+  public Order createOrder(@RequestBody OrderDTO order){
     return orderService.createOrder(order);
   }
 
