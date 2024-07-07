@@ -41,11 +41,6 @@ public class ClientController {
     return clientService.createClient(client);
   }
 
-  @PostMapping("/{order}")
-  public Order createOrder(@RequestBody Order order){
-    return orderService.createOrder(order);
-  }
-
   @PutMapping
   public Client updateClient(@PathVariable Long id, @RequestBody Client client){
     return clientService.updateClient(id, client);
