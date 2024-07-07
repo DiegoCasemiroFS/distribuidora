@@ -1,4 +1,4 @@
-package br.com.DiegoCasemiroFS.demo.entity.dto;
+package br.com.DiegoCasemiroFS.demo.controller.dto;
 
 public record SupplierDTO(String name, String address, String email, String phone) {
 

@@ -1,4 +1,4 @@
-package br.com.DiegoCasemiroFS.demo.entity.enums;
+package br.com.DiegoCasemiroFS.demo.enums;
 
 public enum Payment {
     BOLETO,
