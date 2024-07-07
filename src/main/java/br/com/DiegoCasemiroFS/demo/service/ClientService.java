@@ -1,7 +1,6 @@
 package br.com.DiegoCasemiroFS.demo.service;
 
 import br.com.DiegoCasemiroFS.demo.entity.Client;
-import br.com.DiegoCasemiroFS.demo.entity.dto.ClientDTO;
 import br.com.DiegoCasemiroFS.demo.repository.ClientRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,6 @@ public class ClientService {
     return client;
   }
 
-  //o metodo tem que retornar um Client ou ClientDTO ?
   public Client updateClient(Long id, Client client){
     return clientRepository.findById(id)
         .map(f -> {
