@@ -1,7 +1,6 @@
 package br.com.DiegoCasemiroFS.demo.service;
 
 import br.com.DiegoCasemiroFS.demo.entity.Product;
-import br.com.DiegoCasemiroFS.demo.entity.dto.ProductDTO;
 import br.com.DiegoCasemiroFS.demo.repository.ProductRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +25,7 @@ public class ProductService {
     productRepository.save(product);
     return product;
   }
-/*
-  public Product addProduct(Product product){
 
-  }
-
-  public Product removeProduct(){
-
-  }
-*/
   public Product updateProduct(Long id, Product product){
     return productRepository.findById(id)
         .map(f -> {
