@@ -20,21 +20,18 @@ public class Supplier {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @NotNull
   private String name;
 
-  @NotNull
   private String address;
 
   @Email
-  @NotNull
   @Column(unique = true)
   private String email;
 
-  @NotNull
   @Column(unique = true)
   private String phone;
 
+  @ManyToMany
   private List<Product> suppliedProducts;
 
 }
