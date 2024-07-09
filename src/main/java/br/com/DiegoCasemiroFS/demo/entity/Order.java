@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
-@Entity
+@Entity(name = "Pedido")
 @Data
 @Builder
 @AllArgsConstructor
@@ -36,9 +34,8 @@ public class Order {
   @JoinColumn(name = "supplier_id")
   private Supplier supplier;
 
-  @ManyToMany
-  @JoinColumn(name = "product_list")
-  private List<Product> products = new ArrayList<>();
+  @OneToMany(mappedBy = "order")
+  private List<OrderItem> items;
 
   private BigDecimal totalValue;
 }
