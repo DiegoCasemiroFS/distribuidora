@@ -11,10 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderDTO {
 
-    @NotNull(message = "o codigo do cliente deve ser informado.")
-    private Long cliente;
+    private Long client;
 
-    @NotNull(message = "o campo total deve ser informado.")
     private BigDecimal total;
 
     private List<ProductDTO> itens;
