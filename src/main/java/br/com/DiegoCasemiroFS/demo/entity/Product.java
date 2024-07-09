@@ -11,6 +11,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Data
 @Builder
@@ -32,7 +34,7 @@ public class Product {
   private Group group;
 
   @NotNull
-  private Double price;
+  private BigDecimal price;
 
   private Integer stockQuantity;
 }
