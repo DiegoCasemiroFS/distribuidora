@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("v1/api/fornecedor")
+@RequestMapping("v1/api/supplier")
 public class SupplierController {
 
   @Autowired
@@ -26,22 +26,22 @@ public class SupplierController {
   }
 
   @GetMapping
-  public List<Supplier> listFornecedor(){
+  public List<Supplier> listAllSuppliers(){
     return supplierService.listAllSuppliers();
   }
 
   @PostMapping
-  public Supplier createFornecedor(@RequestBody Supplier supplier){
+  public Supplier createSupplier(@RequestBody Supplier supplier){
     return supplierService.createSupplier(supplier);
   }
 
   @PutMapping
-  public Supplier updateFornecedor(@PathVariable Long id, @RequestBody Supplier supplier){
+  public Supplier updateSupplier(@PathVariable Long id, @RequestBody Supplier supplier){
     return supplierService.updateSupplier(id, supplier);
   }
 
   @DeleteMapping
-  public void deleteFornecedor(@PathVariable Long id){
+  public void deleteSupplier(@PathVariable Long id){
     supplierService.deleteSupplier(id);
   }
 }
