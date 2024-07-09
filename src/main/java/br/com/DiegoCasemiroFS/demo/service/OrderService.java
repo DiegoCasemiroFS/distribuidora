@@ -1,6 +1,8 @@
 package br.com.DiegoCasemiroFS.demo.service;
 
 import br.com.DiegoCasemiroFS.demo.controller.dto.OrderDTO;
+import br.com.DiegoCasemiroFS.demo.controller.dto.OrderDTOInformation;
+import br.com.DiegoCasemiroFS.demo.controller.dto.OrderDTOItemInformation;
 import br.com.DiegoCasemiroFS.demo.entity.Client;
 import br.com.DiegoCasemiroFS.demo.entity.Order;
 import br.com.DiegoCasemiroFS.demo.entity.OrderItem;
@@ -9,9 +11,13 @@ import br.com.DiegoCasemiroFS.demo.repository.OrderItemRepository;
 import br.com.DiegoCasemiroFS.demo.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,17 +40,28 @@ public class OrderService {
         .orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 
-  public List<Order> findAllOrders(){
-    return orderRepository.findAll();
-  }
-
   public Order createOrder(OrderDTO orderDTO){
-    Client client = clientService.findById(orderDTO.getCliente());
+    Client client = clientService.findById(orderDTO.getClient());
     Order order = buildOrder(orderDTO, client);
     List<OrderItem> orderItens = buildOrderItens(orderDTO, order);
     orderRepository.save(order);
     orderItemRepository.saveAll(orderItens);
     return order;
+  }
+
+  public OrderDTOInformation bringComplete(Long id){
+    Optional<Order> orderRepositoryByIdFetchItens = orderRepository.findByIdFetchItens(id);
+    return orderRepositoryByIdFetchItens.map(
+            m -> buildOrderDTOInformation(m)
+    ).orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+  }
+
+  private static Order buildOrder(OrderDTO orderDTO, Client client) {
+    return Order.builder()
+            .client(client)
+            .orderDate(LocalDate.now())
+            .totalValue(orderDTO.getTotal())
+            .build();
   }
 
   private List<OrderItem> buildOrderItens(OrderDTO orderDTO, Order order) {
@@ -62,12 +79,30 @@ public class OrderService {
     return orderItens;
   }
 
-  private static Order buildOrder(OrderDTO orderDTO, Client client) {
-    return Order.builder()
-            .client(client)
-            .orderDate(LocalDate.now())
-            .totalValue(orderDTO.getTotal())
+  private OrderDTOInformation buildOrderDTOInformation(Order order){
+    return OrderDTOInformation.builder()
+            .id(order.getId())
+            .orderDate(order.getOrderDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+            .cpf(order.getClient().getCpf())
+            .name(order.getClient().getName())
+            .total(order.getTotalValue())
+            .items(buildOrderDTOItemInformation(order.getItems()))
             .build();
+  }
+
+  private List<OrderDTOItemInformation> buildOrderDTOItemInformation(List<OrderItem> itens){
+    if (CollectionUtils.isEmpty(itens)) {
+      return Collections.emptyList();
+    }
+
+    return itens.stream()
+            .map(m -> OrderDTOItemInformation.builder()
+                    .group(m.getProduct().getGroup())
+                    .price(m.getProduct().getPrice())
+                    .quantity(m.getQuantity())
+                    .build()
+            )
+            .collect(Collectors.toList());
   }
 
   public void deleteOrder(Long id){
