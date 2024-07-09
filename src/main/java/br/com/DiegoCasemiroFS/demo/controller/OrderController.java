@@ -1,16 +1,15 @@
 package br.com.DiegoCasemiroFS.demo.controller;
 
 import br.com.DiegoCasemiroFS.demo.controller.dto.OrderDTO;
+import br.com.DiegoCasemiroFS.demo.controller.dto.OrderDTOInformation;
 import br.com.DiegoCasemiroFS.demo.entity.Order;
 import br.com.DiegoCasemiroFS.demo.service.OrderService;
 import br.com.DiegoCasemiroFS.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("v1/api/pedido")
+@RequestMapping("v1/api/order")
 public class OrderController {
 
   @Autowired
@@ -24,14 +23,14 @@ public class OrderController {
     return orderService.findById(id);
   }
 
-  @GetMapping
-  public List<Order> findAllOrders(){
-    return orderService.findAllOrders();
+  @PostMapping
+  public Long createOrder(@RequestBody OrderDTO order){
+    return orderService.createOrder(order).getId();
   }
 
-  @PostMapping
-  public Order createOrder(@RequestBody OrderDTO order){
-    return orderService.createOrder(order);
+  @GetMapping
+  public OrderDTOInformation bringComplete(@PathVariable Long id) {
+    return orderService.bringComplete(id);
   }
 
   @DeleteMapping
