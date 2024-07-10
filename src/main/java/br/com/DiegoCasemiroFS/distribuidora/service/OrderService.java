@@ -3,6 +3,7 @@ package br.com.DiegoCasemiroFS.distribuidora.service;
 import br.com.DiegoCasemiroFS.distribuidora.controller.dto.OrderDTO;
 import br.com.DiegoCasemiroFS.distribuidora.controller.dto.OrderDTOInformation;
 import br.com.DiegoCasemiroFS.distribuidora.controller.dto.OrderDTOItemInformation;
+import br.com.DiegoCasemiroFS.distribuidora.controller.dto.OrderItemDTO;
 import br.com.DiegoCasemiroFS.distribuidora.entity.Client;
 import br.com.DiegoCasemiroFS.distribuidora.entity.Order;
 import br.com.DiegoCasemiroFS.distribuidora.entity.OrderItem;
@@ -64,18 +65,18 @@ public class OrderService {
             .build();
   }
 
-  private List<OrderItem> buildOrderItens(OrderDTO orderDTO, Order order) {
-    List<OrderItem> orderItens = orderDTO.getItens()
+  private List<OrderItem> buildOrderItens(OrderItemDTO orderitemDTO, Order order) {
+    List<OrderItem> orderItens = orderItemDTO.get()
             .stream()
             .map(m -> {
-              Long productId = m.getProductCode();
-              Product product = productService.findById(productId);
+              Product product = productService.findById(m);
               return OrderItem.builder()
                       .order(order)
                       .product(product)
-                      .quantity(m.getStockQuatity())
+                      .quantity(product.getStockQuantity())
                       .build();
             }).collect(Collectors.toList());
+
     return orderItens;
   }
 

@@ -14,5 +14,5 @@ public class OrderDTO {
 
     private BigDecimal total;
 
-    private List<ProductDTO> itens;
+    private List<Long> itens;
 }

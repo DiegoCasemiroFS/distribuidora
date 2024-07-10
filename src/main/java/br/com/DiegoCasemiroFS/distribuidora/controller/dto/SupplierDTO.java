@@ -1,5 +1,14 @@
 package br.com.DiegoCasemiroFS.distribuidora.controller.dto;
 
-public record SupplierDTO(String name, String address, String email, String phone) {
+public class SupplierDTO {
+
+    private String name;
+
+    private String address;
+
+    private String email;
+
+    private String phone;
+
 
 }
