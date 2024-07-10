@@ -1,22 +1,14 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity.dto;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.enums.Group;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDTOItemInformation {
+public class OrderItemDto {
 
-    private Group group;
-
-    private BigDecimal price;
-
+    private Long productCode;
     private Integer quantity;
 }

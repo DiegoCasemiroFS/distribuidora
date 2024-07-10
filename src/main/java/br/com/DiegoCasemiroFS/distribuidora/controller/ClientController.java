@@ -4,7 +4,7 @@ import br.com.DiegoCasemiroFS.distribuidora.entity.Client;
 import br.com.DiegoCasemiroFS.distribuidora.service.ClientService;
 import java.util.List;
 
-import br.com.DiegoCasemiroFS.distribuidora.service.OrderService;
+import br.com.DiegoCasemiroFS.distribuidora.service.impl.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ public class ClientController {
   private ClientService clientService;
 
   @Autowired
-  private OrderService orderService;
+  private OrderServiceImpl orderServiceImpl;
 
   @GetMapping("/{id}")
   public Client findById(@PathVariable Long id){

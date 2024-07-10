@@ -22,8 +22,6 @@ public class Client {
 
   private String address;
 
-  private String cpf;
-
   @Email
   @Column(unique = true)
   private String email;

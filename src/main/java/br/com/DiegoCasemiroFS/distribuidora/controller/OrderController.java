@@ -1,40 +1,32 @@
 package br.com.DiegoCasemiroFS.distribuidora.controller;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.dto.OrderDTO;
-import br.com.DiegoCasemiroFS.distribuidora.entity.dto.OrderDTOInformation;
-import br.com.DiegoCasemiroFS.distribuidora.entity.Order;
+import br.com.DiegoCasemiroFS.distribuidora.entity.dto.OrderDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.dto.OrderDtoInformation;
+import br.com.DiegoCasemiroFS.distribuidora.entity.dto.UpdateOrderDtoStatus;
+import br.com.DiegoCasemiroFS.distribuidora.entity.enums.OrderStatus;
 import br.com.DiegoCasemiroFS.distribuidora.service.OrderService;
-import br.com.DiegoCasemiroFS.distribuidora.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("v1/api/order")
 public class OrderController {
 
-  @Autowired
-  OrderService orderService;
-
-  @Autowired
-  ProductService productService;
-
-  @GetMapping("/{id}")
-  public Order findById(@PathVariable Long id){
-    return orderService.findById(id);
-  }
+  private final OrderService orderService;
 
   @PostMapping
-  public Long createOrder(@RequestBody OrderDTO order){
-    return orderService.createOrder(order).getId();
+  public Long createOrder(@RequestBody OrderDto orderDto){
+    return orderService.createOrder(orderDto).getId();
   }
 
   @GetMapping
-  public OrderDTOInformation bringComplete(@PathVariable Long id) {
+  public OrderDtoInformation bringComplete(@PathVariable Long id) {
     return orderService.bringComplete(id);
   }
 
-  @DeleteMapping
-  public void deleteOrder(@PathVariable Long id){
-    orderService.deleteOrder(id);
+  @PatchMapping
+  public void updateStatus(@PathVariable Long id, @RequestBody UpdateOrderDtoStatus updateOrderDtoStatus){
+    orderService.updateStatus(id, OrderStatus.valueOf(updateOrderDtoStatus.getNewStatus()));
   }
 }

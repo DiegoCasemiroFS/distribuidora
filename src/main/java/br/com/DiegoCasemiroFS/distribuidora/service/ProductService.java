@@ -22,8 +22,7 @@ public class ProductService {
   }
 
   public Product createProduct(Product product){
-    productRepository.save(product);
-    return product;
+    return productRepository.save(product);
   }
 
   public Product updateProduct(Long id, Product product){
@@ -32,7 +31,8 @@ public class ProductService {
           product.setId(f.getId());
           productRepository.save(product);
           return product;
-        }). orElseThrow(() -> new RuntimeException("Id não encontrado"));
+        })
+            .orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 
   public void deleteProduct(Long id){
@@ -40,6 +40,7 @@ public class ProductService {
         .map(f -> {
           productRepository.delete(f);
           return Void.TYPE;
-        }).orElseThrow(() -> new RuntimeException("Id não encontrado"));
+        })
+            .orElseThrow(() -> new RuntimeException("Id não encontrado"));
   }
 }

@@ -1,5 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity;
 
+import br.com.DiegoCasemiroFS.distribuidora.entity.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -10,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @Builder
@@ -23,9 +23,6 @@ public class Order {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @CreationTimestamp
-  private LocalDate orderDate;
-
   @ManyToOne
   @JoinColumn(name = "client_id")
   private Client client;
@@ -34,8 +31,14 @@ public class Order {
   @JoinColumn(name = "supplier_id")
   private Supplier supplier;
 
-  @OneToMany(mappedBy = "order")
-  private List<OrderItem> items;
+  private LocalDate orderDate;
 
-  private BigDecimal totalValue;
+  private BigDecimal total;
+
+  @Enumerated(EnumType.STRING)
+  private OrderStatus status;
+
+  @OneToMany(mappedBy = "order")
+  private List<OrderItem> itens;
+
 }
