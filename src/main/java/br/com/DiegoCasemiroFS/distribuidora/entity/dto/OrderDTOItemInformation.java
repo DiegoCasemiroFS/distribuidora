@@ -1,6 +1,6 @@
-package br.com.DiegoCasemiroFS.distribuidora.controller.dto;
+package br.com.DiegoCasemiroFS.distribuidora.entity.dto;
 
-import br.com.DiegoCasemiroFS.distribuidora.enums.Group;
+import br.com.DiegoCasemiroFS.distribuidora.entity.enums.Group;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

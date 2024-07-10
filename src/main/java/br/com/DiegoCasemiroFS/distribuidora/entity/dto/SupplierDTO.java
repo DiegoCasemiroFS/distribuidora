@@ -1,4 +1,4 @@
-package br.com.DiegoCasemiroFS.distribuidora.controller.dto;
+package br.com.DiegoCasemiroFS.distribuidora.entity.dto;
 
 public class SupplierDTO {
 

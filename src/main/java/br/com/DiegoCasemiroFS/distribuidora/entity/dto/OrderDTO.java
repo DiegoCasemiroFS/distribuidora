@@ -1,4 +1,4 @@
-package br.com.DiegoCasemiroFS.distribuidora.controller.dto;
+package br.com.DiegoCasemiroFS.distribuidora.entity.dto;
 
 import lombok.*;
 
@@ -11,8 +11,6 @@ import java.util.List;
 public class OrderDTO {
 
     private Long client;
-
     private BigDecimal total;
-
     private List<Long> itens;
 }

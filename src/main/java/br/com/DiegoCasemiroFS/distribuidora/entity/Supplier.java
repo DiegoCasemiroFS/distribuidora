@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class Supplier {

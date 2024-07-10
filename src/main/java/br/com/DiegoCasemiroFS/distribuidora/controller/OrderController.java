@@ -1,7 +1,7 @@
 package br.com.DiegoCasemiroFS.distribuidora.controller;
 
-import br.com.DiegoCasemiroFS.distribuidora.controller.dto.OrderDTO;
-import br.com.DiegoCasemiroFS.distribuidora.controller.dto.OrderDTOInformation;
+import br.com.DiegoCasemiroFS.distribuidora.entity.dto.OrderDTO;
+import br.com.DiegoCasemiroFS.distribuidora.entity.dto.OrderDTOInformation;
 import br.com.DiegoCasemiroFS.distribuidora.entity.Order;
 import br.com.DiegoCasemiroFS.distribuidora.service.OrderService;
 import br.com.DiegoCasemiroFS.distribuidora.service.ProductService;

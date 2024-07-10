@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity;
 
-import br.com.DiegoCasemiroFS.distribuidora.enums.Group;
+import br.com.DiegoCasemiroFS.distribuidora.entity.enums.Group;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@Entity
 @Data
+@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
