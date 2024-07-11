@@ -36,12 +36,12 @@ public class ProductController {
   }
 
   @PutMapping
-  public Product updateProduto(@PathVariable Long id, @RequestBody Product product) {
+  public Product updateProduct(@PathVariable Long id, @RequestBody Product product) {
     return productService.updateProduct(id, product);
   }
 
   @DeleteMapping
-  public void deleteProduto(@PathVariable Long id) {
+  public void deleteProduct(@PathVariable Long id) {
     productService.deleteProduct(id);
   }
 }
