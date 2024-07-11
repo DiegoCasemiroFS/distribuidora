@@ -51,7 +51,7 @@ classDiagram
         +updateStatus(Long id, UpdateOrderDtoStatus updateOrderDtoStatus)
     }
     
-    Class OrderItem {
+    class OrderItem {
 
         +Long id;
         +Order order;
