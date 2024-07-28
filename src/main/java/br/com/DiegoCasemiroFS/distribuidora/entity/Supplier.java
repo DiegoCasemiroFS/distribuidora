@@ -3,12 +3,14 @@ package br.com.DiegoCasemiroFS.distribuidora.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,13 +25,11 @@ public class Supplier {
   private String address;
 
   @Email
-  @Column(unique = true)
   private String email;
 
-  @Column(unique = true)
   private String phone;
 
-  @ManyToMany
+  @ManyToOne
   private List<Product> products;
 
 }

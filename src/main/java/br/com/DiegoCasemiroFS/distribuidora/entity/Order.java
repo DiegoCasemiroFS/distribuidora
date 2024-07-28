@@ -2,17 +2,12 @@ package br.com.DiegoCasemiroFS.distribuidora.entity;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.enums.OrderStatus;
 import jakarta.persistence.*;
+import lombok.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,14 +26,14 @@ public class Order {
   @JoinColumn(name = "supplier_id")
   private Supplier supplier;
 
-  private LocalDate orderDate;
+  @OneToMany
+  @JoinColumn(name = "product_id")
+  private Product product;
 
-  private BigDecimal total;
+  private Integer quantity;
+
+  private LocalDate orderDate = LocalDate.now();
 
   @Enumerated(EnumType.STRING)
   private OrderStatus status;
-
-  @OneToMany(mappedBy = "order")
-  private List<OrderItem> itens;
-
 }

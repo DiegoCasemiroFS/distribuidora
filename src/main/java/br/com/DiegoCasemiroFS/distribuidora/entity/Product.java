@@ -1,13 +1,16 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity;
 
+import br.com.DiegoCasemiroFS.distribuidora.entity.enums.ProductGroup;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,9 +22,11 @@ public class Product {
 
   private String name;
 
-//  @Enumerated(EnumType.STRING)
-//  private Group group;
+  @Enumerated(EnumType.STRING)
+  private ProductGroup group;
 
-  @Column(name = "preco_unitario")
   private BigDecimal price;
+
+  @ManyToOne
+  private Long supplierId;
 }

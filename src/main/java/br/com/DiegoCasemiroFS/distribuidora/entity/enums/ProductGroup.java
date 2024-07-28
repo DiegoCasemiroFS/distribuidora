@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity.enums;
 
-public enum Group {
+public enum ProductGroup {
 
   CAPSULA,
   OLEOS_VEGETAIS,

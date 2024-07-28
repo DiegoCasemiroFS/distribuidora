@@ -1,6 +1,8 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.Client;
+import br.com.DiegoCasemiroFS.distribuidora.entity.dto.ClientDto;
+import br.com.DiegoCasemiroFS.distribuidora.exception.ClientNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.ClientRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ public class ClientService {
 
   public Client findById(Long id){
     return clientRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Id não encontrado"));
+        .orElseThrow(ClientNotFoundException::new);
   }
 
   public List<Client> findAllClients(){
@@ -22,25 +24,20 @@ public class ClientService {
   }
 
   public Client createClient(Client client){
-    clientRepository.save(client);
-    return client;
+    return clientRepository.save(client);
   }
 
-  public Client updateClient(Long id, Client client){
+  public Client updateClient(Long id, ClientDto clientDto){
     return clientRepository.findById(id)
-        .map(f -> {
-          client.setId(f.getId());
-          clientRepository.save(client);
-          return client;
-        }).orElseThrow(()->new RuntimeException("Id não encontrado"));
+        .map(client -> {
+          client.setAddress(clientDto.getAddress());
+          client.setEmail(clientDto.getEmail());
+          client.setPhone(clientDto.getPhone());
+          return clientRepository.save(client);
+        }).orElseThrow(ClientNotFoundException::new);
   }
 
   public void deleteClient(Long id){
-    clientRepository.findById(id)
-        .map(f->{
-          clientRepository.delete(f);
-          return Void.TYPE;
-        }).orElseThrow(()->new RuntimeException("Id não encontrado"));
+    clientRepository.deleteById(id);
   }
-
 }

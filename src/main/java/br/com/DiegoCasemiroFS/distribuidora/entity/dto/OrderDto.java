@@ -1,16 +1,25 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity.dto;
 
-import lombok.*;
+import br.com.DiegoCasemiroFS.distribuidora.entity.enums.OrderStatus;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.math.BigDecimal;
-import java.util.List;
+import java.time.LocalDate;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class OrderDto {
+@Getter public class OrderDto {
 
-    private Long client;
-    private BigDecimal total;
-    private List<OrderItemDto> itens;
+    private Long clientId;
+
+    private Long supplierId;
+
+    private Long productId;
+
+    private Integer quantity;
+
+    private LocalDate orderDate = LocalDate.now();
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 }
