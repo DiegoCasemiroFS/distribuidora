@@ -20,7 +20,7 @@ public class UserService {
     }
 
     public List<User> findAll(){
-        return userRepository.findAll();
+        return userRepository.findAllByUserByNameAsc();
     }
 
     public User createUser(User user){
