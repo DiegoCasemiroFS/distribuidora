@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity.enums;
 
-public enum ClientType {
+public enum TipoUsuario {
     FORNECEDOR,
     CLIENTE
 }

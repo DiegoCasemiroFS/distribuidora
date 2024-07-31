@@ -1,23 +1,32 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.enums.ClientType;
+import br.com.DiegoCasemiroFS.distribuidora.entity.enums.TipoProduto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@Table(name = "produto")
+public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
-    private String address;
-    private String phone;
+
+    private String brand;
+
     @Enumerated(EnumType.STRING)
-    private ClientType clientType;
+    private TipoProduto tipoProduto;
+
+    private BigDecimal price;
+
+
 }
