@@ -55,7 +55,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void findAll_UsersFound(){
+    void findAll(){
 
         Usuario usuario1 = new Usuario();
         usuario1.setId(1L);
@@ -71,7 +71,21 @@ class UsuarioServiceTest {
         assertEquals(2, foundUsuarios.size());
         assertEquals(1L, foundUsuarios.get(0).getId());
         assertEquals(2L, foundUsuarios.get(1).getId());
-
         verify(usuarioRepository, times(1)).findAll();
+    }
+
+    @Test
+    void crateUser() {
+
+    }
+
+    @Test
+    void updateUser() {
+
+    }
+
+    @Test
+    void deleteUser() {
+
     }
 }
