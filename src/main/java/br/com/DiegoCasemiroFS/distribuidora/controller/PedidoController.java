@@ -1,7 +1,7 @@
 package br.com.DiegoCasemiroFS.distribuidora.controller;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.Pedido;
-import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.PedidoRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.Order;
+import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.OrderRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,23 +16,23 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @GetMapping("/findOrder")
-    public Pedido findOrderById(@PathVariable Long id){
+    public Order findOrderById(@PathVariable Long id){
         return pedidoService.findById(id);
     }
 
     @GetMapping("/findAll")
-    public List<Pedido> findAllOrders(){
+    public List<Order> findAllOrders(){
         return pedidoService.findAll();
     }
 
     @PostMapping("/createOrder")
-    public Pedido createOrder(@RequestBody PedidoRequestDto pedidoRequestDto){
-        return pedidoService.createOrder(pedidoRequestDto);
+    public Order createOrder(@RequestBody OrderRequestDto orderRequestDto){
+        return pedidoService.createOrder(orderRequestDto);
     }
 
     @PutMapping("/updateOrder")
-    public Pedido updateOrder(@PathVariable Long id, @RequestBody PedidoRequestDto pedidoRequestDto){
-        return pedidoService.updateOrder(id, pedidoRequestDto);
+    public Order updateOrder(@PathVariable Long id, @RequestBody OrderRequestDto orderRequestDto){
+        return pedidoService.updateOrder(id, orderRequestDto);
     }
 
     @DeleteMapping("/deleteOrder")

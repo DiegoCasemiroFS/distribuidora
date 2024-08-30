@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.security;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.Usuario;
+import br.com.DiegoCasemiroFS.distribuidora.entity.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -19,13 +19,13 @@ public class JwtService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String geraToken(Usuario usuario) {
+    public String geraToken(User user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("Distribuidora")
-                    .withSubject(usuario.getEmail())
-                    .withClaim("admin", usuario.isAdmin())
+                    .withSubject(user.getEmail())
+                    .withClaim("admin", user.isAdmin())
                     .withExpiresAt(dataExpiracao())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {

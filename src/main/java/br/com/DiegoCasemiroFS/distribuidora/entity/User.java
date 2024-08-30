@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.enums.TipoUsuario;
+import br.com.DiegoCasemiroFS.distribuidora.entity.enums.UserType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +19,7 @@ import java.util.Collections;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "usuario")
-public class Usuario implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class Usuario implements UserDetails {
 
     private String email;
 
-    private String senha;
+    private String password;
 
     private String address;
 
@@ -38,7 +38,7 @@ public class Usuario implements UserDetails {
     private boolean admin;
 
     @Enumerated(EnumType.STRING)
-    private TipoUsuario tipoUsuario;
+    private UserType userType;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -47,7 +47,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getPassword() {
-        return senha;
+        return password;
     }
 
     @Override
@@ -81,10 +81,10 @@ public class Usuario implements UserDetails {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
+                ", senha='" + password + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
-                ", tipoUsuario=" + tipoUsuario +
+                ", tipoUsuario=" + userType +
                 '}';
     }
 }

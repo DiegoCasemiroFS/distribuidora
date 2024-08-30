@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.Usuario;
+import br.com.DiegoCasemiroFS.distribuidora.entity.User;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UsuarioRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-class UsuarioServiceTest {
+class UserServiceTest {
 
     @Mock
     private UsuarioRepository usuarioRepository;
@@ -26,23 +26,23 @@ class UsuarioServiceTest {
     @InjectMocks
     private UsuarioService usuarioService;
 
-    private Usuario usuario;
+    private User user;
 
     @BeforeEach
     void setUp(){
-        usuario = new Usuario();
-        usuario.setId(1L);
+        user = new User();
+        user.setId(1L);
     }
 
     @Test
     void findById_UserFound() {
 
-        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuario));
+        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(user));
 
-        Usuario foundUsuario = usuarioService.findById(1L);
+        User foundUser = usuarioService.findById(1L);
 
-        assertNotNull(foundUsuario);
-        assertEquals(1L, foundUsuario.getId());
+        assertNotNull(foundUser);
+        assertEquals(1L, foundUser.getId());
         verify(usuarioRepository, times(1)).findById(1L);
     }
 
@@ -57,20 +57,20 @@ class UsuarioServiceTest {
     @Test
     void findAll(){
 
-        Usuario usuario1 = new Usuario();
-        usuario1.setId(1L);
+        User user1 = new User();
+        user1.setId(1L);
 
-        Usuario usuario2 = new Usuario();
-        usuario2.setId(2L);
+        User user2 = new User();
+        user2.setId(2L);
 
-        List<Usuario> usuarios = List.of(usuario1, usuario2);
-        when(usuarioRepository.findAll()).thenReturn(usuarios);
-        List<Usuario> foundUsuarios = usuarioService.findAll();
+        List<User> users = List.of(user1, user2);
+        when(usuarioRepository.findAll()).thenReturn(users);
+        List<User> foundUsers = usuarioService.findAll();
 
-        assertNotNull(foundUsuarios);
-        assertEquals(2, foundUsuarios.size());
-        assertEquals(1L, foundUsuarios.get(0).getId());
-        assertEquals(2L, foundUsuarios.get(1).getId());
+        assertNotNull(foundUsers);
+        assertEquals(2, foundUsers.size());
+        assertEquals(1L, foundUsers.get(0).getId());
+        assertEquals(2L, foundUsers.get(1).getId());
         verify(usuarioRepository, times(1)).findAll();
     }
 

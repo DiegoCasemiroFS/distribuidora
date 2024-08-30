@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.enums.TipoProduto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.enums.ProductType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "produto")
-public class Produto {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,7 @@ public class Produto {
     private String brand;
 
     @Enumerated(EnumType.STRING)
-    private TipoProduto tipoProduto;
+    private ProductType productType;
 
     private BigDecimal price;
 

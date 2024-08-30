@@ -1,7 +1,7 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.Produto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.ProdutoRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.Product;
+import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.ProductRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProductNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +15,22 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    public Produto findById(Long id){
+    public Product findById(Long id){
         return produtoRepository.findById(id).orElseThrow(ProductNotFoundException::new);
     }
 
-    public List<Produto> findAll(){
+    public List<Product> findAll(){
         return produtoRepository.findAll();
     }
 
-    public Produto createProduct(Produto produto){
-        return produtoRepository.save(produto);
+    public Product createProduct(Product product){
+        return produtoRepository.save(product);
     }
 
-    public Produto updateProduct(Long id, ProdutoRequestDto produtoRequestDto){
+    public Product updateProduct(Long id, ProductRequestDto productRequestDto){
         return produtoRepository.findById(id)
                 .map(product -> {
-                    product.setPrice(produtoRequestDto.getPrice());
+                    product.setPrice(productRequestDto.getPrice());
                     return product;
                 }).orElseThrow(ProductNotFoundException::new);
     }

@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.security;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.Usuario;
+import br.com.DiegoCasemiroFS.distribuidora.entity.User;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UsuarioRepository;
 import jakarta.servlet.FilterChain;
@@ -32,13 +32,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         var login = jwtService.validaToken(token);
 
         if (login != null) {
-            Usuario usuario = usuarioRepository.findByEmail(login).orElseThrow(UserNotFoundException::new);
+            User user = usuarioRepository.findByEmail(login).orElseThrow(UserNotFoundException::new);
 
-            var authorities = usuario.isAdmin()
+            var authorities = user.isAdmin()
                     ? Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"))
                     : Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
-            var authentication = new UsernamePasswordAuthenticationToken(usuario, null, authorities);
+            var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);

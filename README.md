@@ -54,8 +54,8 @@ classDiagram
     class OrderItem {
 
         +Long id;
-        +Order pedido;
-        +Product produto;
+        +Order order;
+        +Product product;
         +Integer quantity;
     }
     
@@ -66,8 +66,8 @@ classDiagram
         
         +findById(Long id)
         +findAll()
-        +createProduct(Product produto)
-        +updateProduct(Long id, Product produto)
+        +createProduct(Product product)
+        +updateProduct(Long id, Product product)
         +deleteProduct(Long id)
     }
 

@@ -1,9 +1,9 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.Pedido;
-import br.com.DiegoCasemiroFS.distribuidora.entity.Produto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.Usuario;
-import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.PedidoRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.Order;
+import br.com.DiegoCasemiroFS.distribuidora.entity.Product;
+import br.com.DiegoCasemiroFS.distribuidora.entity.User;
+import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.OrderRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.exception.OrderNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProductNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
@@ -23,36 +23,36 @@ public class PedidoService {
     private final UsuarioRepository usuarioRepository;
     private final ProdutoRepository produtoRepository;
 
-    public Pedido findById(Long id){
+    public Order findById(Long id){
         return pedidoRepository.findById(id).orElseThrow(OrderNotFoundException::new);
     }
 
-    public List<Pedido> findAll(){
+    public List<Order> findAll(){
         return pedidoRepository.findAll();
     }
 
-    public Pedido createOrder(PedidoRequestDto pedidoRequestDto){
-        Usuario usuario = usuarioRepository.findById(pedidoRequestDto.getUserId()).orElseThrow(UserNotFoundException::new);
-        Produto produto = produtoRepository.findById(pedidoRequestDto.getProductId()).orElseThrow(ProductNotFoundException::new);
+    public Order createOrder(OrderRequestDto orderRequestDto){
+        User user = usuarioRepository.findById(orderRequestDto.getUserId()).orElseThrow(UserNotFoundException::new);
+        Product product = produtoRepository.findById(orderRequestDto.getProductId()).orElseThrow(ProductNotFoundException::new);
 
-        Pedido pedido = new Pedido();
-        pedido.setUsuarioId(usuario);
-        pedido.setProdutoId(produto);
-        pedido.setQuantity(pedidoRequestDto.getQuantity());
+        Order order = new Order();
+        order.setUserId(user);
+        order.setProductId(product);
+        order.setQuantity(orderRequestDto.getQuantity());
 
-        return pedido;
+        return order;
     }
 
-    public Pedido updateOrder(Long id, PedidoRequestDto pedidoRequestDto){
-        Usuario usuario = usuarioRepository.findById(pedidoRequestDto.getUserId()).orElseThrow(UserNotFoundException::new);
-        Produto produto = produtoRepository.findById(pedidoRequestDto.getProductId()).orElseThrow(ProductNotFoundException::new);
+    public Order updateOrder(Long id, OrderRequestDto orderRequestDto){
+        User user = usuarioRepository.findById(orderRequestDto.getUserId()).orElseThrow(UserNotFoundException::new);
+        Product product = produtoRepository.findById(orderRequestDto.getProductId()).orElseThrow(ProductNotFoundException::new);
 
         return pedidoRepository.findById(id)
-                .map(pedido -> {
-                    pedido.setUsuarioId(usuario);
-                    pedido.setProdutoId(produto);
-                    pedido.setQuantity(pedidoRequestDto.getQuantity());
-                    return pedido;
+                .map(order -> {
+                    order.setUserId(user);
+                    order.setProductId(product);
+                    order.setQuantity(orderRequestDto.getQuantity());
+                    return order;
                 }).orElseThrow(OrderNotFoundException::new);
     }
 
