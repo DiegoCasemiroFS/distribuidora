@@ -29,6 +29,4 @@ public class Product {
     private ProductType productType;
 
     private BigDecimal price;
-
-
 }

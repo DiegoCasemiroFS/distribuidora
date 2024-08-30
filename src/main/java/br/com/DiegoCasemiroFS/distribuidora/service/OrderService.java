@@ -8,7 +8,7 @@ import br.com.DiegoCasemiroFS.distribuidora.exception.OrderNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProductNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.OrderRepository;
-import br.com.DiegoCasemiroFS.distribuidora.repository.ProuctRepository;
+import br.com.DiegoCasemiroFS.distribuidora.repository.ProductRepository;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
-    private final ProuctRepository prouctRepository;
+    private final ProductRepository productRepository;
 
     public Order findById(Long id){
         return orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
@@ -33,7 +33,7 @@ public class OrderService {
 
     public Order createOrder(OrderRequestDto orderRequestDto){
         User user = userRepository.findById(orderRequestDto.getUserId()).orElseThrow(UserNotFoundException::new);
-        Product product = prouctRepository.findById(orderRequestDto.getProductId()).orElseThrow(ProductNotFoundException::new);
+        Product product = productRepository.findById(orderRequestDto.getProductId()).orElseThrow(ProductNotFoundException::new);
 
         Order order = new Order();
         order.setUserId(user);
@@ -45,7 +45,7 @@ public class OrderService {
 
     public Order updateOrder(Long id, OrderRequestDto orderRequestDto){
         User user = userRepository.findById(orderRequestDto.getUserId()).orElseThrow(UserNotFoundException::new);
-        Product product = prouctRepository.findById(orderRequestDto.getProductId()).orElseThrow(ProductNotFoundException::new);
+        Product product = productRepository.findById(orderRequestDto.getProductId()).orElseThrow(ProductNotFoundException::new);
 
         return orderRepository.findById(id)
                 .map(order -> {

@@ -3,7 +3,7 @@ package br.com.DiegoCasemiroFS.distribuidora.service;
 import br.com.DiegoCasemiroFS.distribuidora.entity.Product;
 import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.ProductRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProductNotFoundException;
-import br.com.DiegoCasemiroFS.distribuidora.repository.ProuctRepository;
+import br.com.DiegoCasemiroFS.distribuidora.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,22 +13,22 @@ import java.util.List;
 public class ProductService {
 
     @Autowired
-    private ProuctRepository prouctRepository;
+    private ProductRepository productRepository;
 
     public Product findById(Long id){
-        return prouctRepository.findById(id).orElseThrow(ProductNotFoundException::new);
+        return productRepository.findById(id).orElseThrow(ProductNotFoundException::new);
     }
 
     public List<Product> findAll(){
-        return prouctRepository.findAll();
+        return productRepository.findAll();
     }
 
     public Product createProduct(Product product){
-        return prouctRepository.save(product);
+        return productRepository.save(product);
     }
 
     public Product updateProduct(Long id, ProductRequestDto productRequestDto){
-        return prouctRepository.findById(id)
+        return productRepository.findById(id)
                 .map(product -> {
                     product.setPrice(productRequestDto.getPrice());
                     return product;
@@ -36,6 +36,6 @@ public class ProductService {
     }
 
     public void deleteProduct(Long id){
-        prouctRepository.deleteById(id);
+        productRepository.deleteById(id);
     }
 }
