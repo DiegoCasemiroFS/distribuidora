@@ -1,6 +1,7 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.Product;
+import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.ProductRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.enums.ProductType;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProductNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.ProductRepository;
@@ -93,7 +94,36 @@ class ProductServiceTest {
     }
 
     @Test
-    void updateProduct() {
+    void updateProductSuccessfuly() {
+
+        Long productId = 1L;
+        Product existingProduct = new Product();
+
+        existingProduct.setId(productId);
+        existingProduct.setPrice(new BigDecimal(100.00));
+
+        ProductRequestDto productRequestDto = new ProductRequestDto();
+        productRequestDto.setPrice(new BigDecimal(120.00));
+
+        when(productRepository.findById(productId)).thenReturn(Optional.of(existingProduct));
+
+        Product updateProduct = productService.updateProduct(productId, productRequestDto);
+
+        assertEquals(productRequestDto.getPrice(), updateProduct.getPrice());
+        verify(productRepository).findById(productId);
+    }
+
+    @Test
+    void updateProductNotSuccessfuly() {
+
+        Long productId = 1L;
+        ProductRequestDto productRequestDto = new ProductRequestDto();
+        productRequestDto.setPrice(new BigDecimal(120.00));
+
+        when(productRepository.findById(productId)).thenReturn(Optional.empty());
+
+        assertThrows(ProductNotFoundException.class, () -> productService.updateProduct(productId, productRequestDto));
+        verify(productRepository).findById(productId);
     }
 
     @Test
