@@ -2,7 +2,7 @@ package br.com.DiegoCasemiroFS.distribuidora.security;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.User;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
-import br.com.DiegoCasemiroFS.distribuidora.repository.UsuarioRepository;
+import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +22,7 @@ import java.util.Collections;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final UsuarioRepository usuarioRepository;
+    private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -32,7 +32,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         var login = jwtService.validaToken(token);
 
         if (login != null) {
-            User user = usuarioRepository.findByEmail(login).orElseThrow(UserNotFoundException::new);
+            User user = userRepository.findByEmail(login).orElseThrow(UserNotFoundException::new);
 
             var authorities = user.isAdmin()
                     ? Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"))

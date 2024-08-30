@@ -2,7 +2,7 @@ package br.com.DiegoCasemiroFS.distribuidora.service;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.Product;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProductNotFoundException;
-import br.com.DiegoCasemiroFS.distribuidora.repository.ProdutoRepository;
+import br.com.DiegoCasemiroFS.distribuidora.repository.ProuctRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,10 +20,10 @@ import static org.mockito.Mockito.*;
 class ProductServiceTest {
 
     @Mock
-    private ProdutoRepository produtoRepository;
+    private ProuctRepository prouctRepository;
 
     @InjectMocks
-    private ProdutoService produtoService;
+    private ProductService productService;
 
     private Product product;
 
@@ -36,21 +36,21 @@ class ProductServiceTest {
     @Test
     void findById_UserFound() {
 
-        when(produtoRepository.findById(1L)).thenReturn(Optional.of(product));
+        when(prouctRepository.findById(1L)).thenReturn(Optional.of(product));
 
-        Product foundProduct = produtoService.findById(1L);
+        Product foundProduct = productService.findById(1L);
 
         assertNotNull(foundProduct);
         assertEquals(1L, foundProduct.getId());
-        verify(produtoRepository, times(1)).findById(1L);
+        verify(prouctRepository, times(1)).findById(1L);
     }
 
     @Test
     void findById_UserNotFound() {
 
-        when(produtoRepository.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(ProductNotFoundException.class, () -> produtoService.findById(1L));
-        verify(produtoRepository, times(1)).findById(1L);
+        when(prouctRepository.findById(1L)).thenReturn(Optional.empty());
+        assertThrows(ProductNotFoundException.class, () -> productService.findById(1L));
+        verify(prouctRepository, times(1)).findById(1L);
     }
 
     @Test
@@ -63,14 +63,14 @@ class ProductServiceTest {
         product2.setId(2L);
 
         List<Product> products = List.of(product1, product2);
-        when(produtoRepository.findAll()).thenReturn(products);
-        List<Product> foundProducts = produtoService.findAll();
+        when(prouctRepository.findAll()).thenReturn(products);
+        List<Product> foundProducts = productService.findAll();
 
         assertNotNull(foundProducts);
         assertEquals(2, foundProducts.size());
         assertEquals(1L, foundProducts.get(0).getId());
         assertEquals(2L, foundProducts.get(1).getId());
-        verify(produtoRepository, times(1)).findAll();
+        verify(prouctRepository, times(1)).findAll();
     }
 
     @Test

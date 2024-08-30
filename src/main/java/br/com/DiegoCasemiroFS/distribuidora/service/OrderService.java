@@ -7,9 +7,9 @@ import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.OrderRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.exception.OrderNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProductNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
-import br.com.DiegoCasemiroFS.distribuidora.repository.PedidoRepository;
-import br.com.DiegoCasemiroFS.distribuidora.repository.ProdutoRepository;
-import br.com.DiegoCasemiroFS.distribuidora.repository.UsuarioRepository;
+import br.com.DiegoCasemiroFS.distribuidora.repository.OrderRepository;
+import br.com.DiegoCasemiroFS.distribuidora.repository.ProuctRepository;
+import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,23 +17,23 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PedidoService {
+public class OrderService {
 
-    private final PedidoRepository pedidoRepository;
-    private final UsuarioRepository usuarioRepository;
-    private final ProdutoRepository produtoRepository;
+    private final OrderRepository orderRepository;
+    private final UserRepository userRepository;
+    private final ProuctRepository prouctRepository;
 
     public Order findById(Long id){
-        return pedidoRepository.findById(id).orElseThrow(OrderNotFoundException::new);
+        return orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
     }
 
     public List<Order> findAll(){
-        return pedidoRepository.findAll();
+        return orderRepository.findAll();
     }
 
     public Order createOrder(OrderRequestDto orderRequestDto){
-        User user = usuarioRepository.findById(orderRequestDto.getUserId()).orElseThrow(UserNotFoundException::new);
-        Product product = produtoRepository.findById(orderRequestDto.getProductId()).orElseThrow(ProductNotFoundException::new);
+        User user = userRepository.findById(orderRequestDto.getUserId()).orElseThrow(UserNotFoundException::new);
+        Product product = prouctRepository.findById(orderRequestDto.getProductId()).orElseThrow(ProductNotFoundException::new);
 
         Order order = new Order();
         order.setUserId(user);
@@ -44,10 +44,10 @@ public class PedidoService {
     }
 
     public Order updateOrder(Long id, OrderRequestDto orderRequestDto){
-        User user = usuarioRepository.findById(orderRequestDto.getUserId()).orElseThrow(UserNotFoundException::new);
-        Product product = produtoRepository.findById(orderRequestDto.getProductId()).orElseThrow(ProductNotFoundException::new);
+        User user = userRepository.findById(orderRequestDto.getUserId()).orElseThrow(UserNotFoundException::new);
+        Product product = prouctRepository.findById(orderRequestDto.getProductId()).orElseThrow(ProductNotFoundException::new);
 
-        return pedidoRepository.findById(id)
+        return orderRepository.findById(id)
                 .map(order -> {
                     order.setUserId(user);
                     order.setProductId(product);
@@ -57,6 +57,6 @@ public class PedidoService {
     }
 
     public void deleteOrder(Long id){
-        pedidoRepository.deleteById(id);
+        orderRepository.deleteById(id);
     }
 }

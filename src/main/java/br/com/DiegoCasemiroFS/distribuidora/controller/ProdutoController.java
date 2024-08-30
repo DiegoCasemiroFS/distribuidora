@@ -2,7 +2,7 @@ package br.com.DiegoCasemiroFS.distribuidora.controller;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.Product;
 import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.ProductRequestDto;
-import br.com.DiegoCasemiroFS.distribuidora.service.ProdutoService;
+import br.com.DiegoCasemiroFS.distribuidora.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,30 +13,30 @@ import java.util.List;
 public class ProdutoController {
 
     @Autowired
-    private ProdutoService produtoService;
+    private ProductService productService;
 
     @GetMapping("/findProduct")
     public Product findProductById(@PathVariable Long id){
-        return produtoService.findById(id);
+        return productService.findById(id);
     }
 
     @GetMapping("/findAll")
     public List<Product> findAllProducts(){
-        return produtoService.findAll();
+        return productService.findAll();
     }
 
     @PostMapping("/createProduct")
     public Product createProduct(@RequestBody Product product){
-        return produtoService.createProduct(product);
+        return productService.createProduct(product);
     }
 
     @PutMapping("/updateProduct")
     public Product updateProduct(@PathVariable Long id, @RequestBody ProductRequestDto productRequestDto){
-        return produtoService.updateProduct(id, productRequestDto);
+        return productService.updateProduct(id, productRequestDto);
     }
 
     @DeleteMapping("/deleteProduct")
     public void deleteProduct(@PathVariable Long id){
-        produtoService.deleteProduct(id);
+        productService.deleteProduct(id);
     }
 }
