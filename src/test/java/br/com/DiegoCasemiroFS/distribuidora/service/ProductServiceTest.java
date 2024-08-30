@@ -83,7 +83,7 @@ class ProductServiceTest {
         product.setName("Melaleuca");
         product.setBrand("Evergreen");
         product.setProductType(ProductType.OLEO_ESSENCIAL);
-        product.setPrice(new BigDecimal(49.99));
+        product.setPrice(new BigDecimal("49.99"));
 
         when(productRepository.save(product)).thenReturn(product);
 
@@ -100,10 +100,10 @@ class ProductServiceTest {
         Product existingProduct = new Product();
 
         existingProduct.setId(productId);
-        existingProduct.setPrice(new BigDecimal(100.00));
+        existingProduct.setPrice(new BigDecimal("100.00"));
 
         ProductRequestDto productRequestDto = new ProductRequestDto();
-        productRequestDto.setPrice(new BigDecimal(120.00));
+        productRequestDto.setPrice(new BigDecimal("120.00"));
 
         when(productRepository.findById(productId)).thenReturn(Optional.of(existingProduct));
 
@@ -118,7 +118,7 @@ class ProductServiceTest {
 
         Long productId = 1L;
         ProductRequestDto productRequestDto = new ProductRequestDto();
-        productRequestDto.setPrice(new BigDecimal(120.00));
+        productRequestDto.setPrice(new BigDecimal("120.00"));
 
         when(productRepository.findById(productId)).thenReturn(Optional.empty());
 
