@@ -94,7 +94,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void updateProductSuccessfuly() {
+    void updateProductSuccessfully() {
 
         Long productId = 1L;
         Product existingProduct = new Product();
@@ -114,7 +114,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void updateProductNotSuccessfuly() {
+    void updateProductNotSuccessfully() {
 
         Long productId = 1L;
         ProductRequestDto productRequestDto = new ProductRequestDto();
@@ -128,5 +128,12 @@ class ProductServiceTest {
 
     @Test
     void deleteProduct() {
+
+        Long productId = 1L;
+
+        doNothing().when(productRepository).deleteById(productId);
+        productService.deleteProduct(productId);
+
+        verify(productRepository).deleteById(productId);
     }
 }
