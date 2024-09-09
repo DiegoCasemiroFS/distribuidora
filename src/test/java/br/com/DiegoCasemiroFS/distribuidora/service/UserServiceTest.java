@@ -1,6 +1,7 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.User;
+import br.com.DiegoCasemiroFS.distribuidora.entity.enums.UserType;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -76,7 +77,22 @@ class UserServiceTest {
 
     @Test
     void crateUser() {
+        User user = new User();
+        user.setId(1L);
+        user.setName("Diego");
+        user.setEmail("diego@email.com");
+        user.setPassword("1234");
+        user.setAddress("Pastor Francisco Joaquim Mendonça");
+        user.setPhone("21980805734");
+        user.setAdmin(true);
+        user.setUserType(UserType.CLIENTE);
 
+        when(userRepository.save(user)).thenReturn(user);
+
+        User result = userService.createUser(user);
+
+        assertEquals(result, user);
+        verify(userRepository).save(user);
     }
 
     @Test
