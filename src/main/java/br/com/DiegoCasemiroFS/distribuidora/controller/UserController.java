@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.controller;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.User;
+import br.com.DiegoCasemiroFS.distribuidora.entity.Users;
 import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.UserRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,28 +10,28 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-public class UsuarioController {
+public class UserController {
 
     @Autowired
     private UserService userService;
 
     @GetMapping("/findUser")
-    public User findUserById(@PathVariable Long id){
+    public Users findUserById(@PathVariable Long id){
         return userService.findById(id);
     }
 
     @GetMapping("/findAll")
-    public List<User> findAllUsers(){
+    public List<Users> findAllUsers(){
         return userService.findAll();
     }
 
     @PostMapping("/createUser")
-    public User createUser(@RequestBody User user){
-        return userService.createUser(user);
+    public Users createUser(@RequestBody Users users){
+        return userService.createUser(users);
     }
 
     @PutMapping("/updateUser")
-    public User updateUser(@PathVariable Long id, @RequestBody UserRequestDto userRequestDto){
+    public Users updateUser(@PathVariable Long id, @RequestBody UserRequestDto userRequestDto){
         return userService.updateUser(id, userRequestDto);
     }
 

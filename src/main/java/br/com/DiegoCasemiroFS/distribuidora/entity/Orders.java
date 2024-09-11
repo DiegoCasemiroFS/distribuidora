@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Pedido")
-public class Order {
+public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User userId;
+    private Users usersId;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.controller;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.Order;
+import br.com.DiegoCasemiroFS.distribuidora.entity.Orders;
 import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.OrderRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,33 +10,33 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/order")
-public class PedidoController {
+public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/findOrder")
-    public Order findOrderById(@PathVariable Long id){
+    @GetMapping("/findById/{id}")
+    public Orders findOrderById(@PathVariable Long id){
         return orderService.findById(id);
     }
 
     @GetMapping("/findAll")
-    public List<Order> findAllOrders(){
+    public List<Orders> findAllOrders(){
         return orderService.findAll();
     }
 
     @PostMapping("/createOrder")
-    public Order createOrder(@RequestBody OrderRequestDto orderRequestDto){
+    public Orders createOrder(@RequestBody OrderRequestDto orderRequestDto){
         return orderService.createOrder(orderRequestDto);
     }
 
-    @PutMapping("/updateOrder")
-    public Order updateOrder(@PathVariable Long id, @RequestBody OrderRequestDto orderRequestDto){
+    @PutMapping("/updateOrder/{id}")
+    public Orders updateOrder(@PathVariable Long id, @RequestBody OrderRequestDto orderRequestDto){
         return orderService.updateOrder(id, orderRequestDto);
     }
 
-    @DeleteMapping("/deleteOrder")
-    public void deleteOrderById(@PathVariable Long id){
+    @DeleteMapping("/deleteOrder/{id}")
+    public void deleteOrder(@PathVariable Long id){
         orderService.deleteOrder(id);
     }
 }
