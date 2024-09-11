@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.User;
+import br.com.DiegoCasemiroFS.distribuidora.entity.Users;
 import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.UserRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
@@ -15,19 +15,19 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User findById(Long id){
+    public Users findById(Long id){
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
-    public List<User> findAll(){
+    public List<Users> findAll(){
         return userRepository.findAll();
     }
 
-    public User createUser(User user){
-        return userRepository.save(user);
+    public Users createUser(Users users){
+        return userRepository.save(users);
     }
 
-    public User updateUser(Long id, UserRequestDto userRequestDto){
+    public Users updateUser(Long id, UserRequestDto userRequestDto){
         return userRepository.findById(id)
                 .map(user -> {
                     user.setAddress(userRequestDto.getAddress());
