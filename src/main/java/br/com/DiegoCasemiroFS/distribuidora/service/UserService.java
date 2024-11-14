@@ -19,6 +19,10 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
+    public Users findByEmail(String email){
+        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+    }
+
     public List<Users> findAll(){
         return userRepository.findAll();
     }
