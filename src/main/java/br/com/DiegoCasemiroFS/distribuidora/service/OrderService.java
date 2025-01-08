@@ -10,6 +10,7 @@ import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.OrderRepository;
 import br.com.DiegoCasemiroFS.distribuidora.repository.ProductRepository;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
+    @Transactional
     public Orders createOrder(OrderRequestDto orderRequestDto){
         Users users = userRepository.findById(orderRequestDto.getUserId()).orElseThrow(UserNotFoundException::new);
         Product product = productRepository.findById(orderRequestDto.getProductId()).orElseThrow(ProductNotFoundException::new);
@@ -40,7 +42,7 @@ public class OrderService {
         orders.setProductId(product);
         orders.setQuantity(orderRequestDto.getQuantity());
 
-        return orders;
+        return orderRepository.save(orders);  // Save the new order
     }
 
     public Orders updateOrder(Long id, OrderRequestDto orderRequestDto){
@@ -52,7 +54,7 @@ public class OrderService {
                     orders.setUsersId(users);
                     orders.setProductId(product);
                     orders.setQuantity(orderRequestDto.getQuantity());
-                    return orders;
+                    return orderRepository.save(orders);  // Save the updated order
                 }).orElseThrow(OrderNotFoundException::new);
     }
 
