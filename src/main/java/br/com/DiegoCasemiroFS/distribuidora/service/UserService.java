@@ -31,12 +31,12 @@ public class UserService {
         return userRepository.save(users);
     }
 
-    public Users updateUser(Long id, UserRequestDto userRequestDto){
+    public Users updateUser(Long id, UserRequestDto userRequestDto) {
         return userRepository.findById(id)
                 .map(user -> {
                     user.setAddress(userRequestDto.getAddress());
                     user.setPhone(userRequestDto.getPhone());
-                    return user;
+                    return userRepository.save(user);
                 }).orElseThrow(UserNotFoundException::new);
     }
 

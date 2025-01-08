@@ -2,7 +2,6 @@ package br.com.DiegoCasemiroFS.distribuidora.service;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.Users;
 import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.UserRequestDto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.enums.UserType;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,9 +17,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
 @ExtendWith(MockitoExtension.class)
-class UsersServiceTest {
+class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
@@ -28,116 +26,113 @@ class UsersServiceTest {
     @InjectMocks
     private UserService userService;
 
-    private Users users;
+    private Users user;
+    private UserRequestDto userRequestDto;
 
     @BeforeEach
-    void setUp(){
-        users = new Users();
-        users.setId(1L);
+    void setUp() {
+        user = new Users();
+        user.setId(1L);
+        user.setEmail("test@example.com");
+        user.setAddress("123 Street");
+        user.setPhone("1234567890");
+
+        userRequestDto = new UserRequestDto();
+        userRequestDto.setAddress("456 Avenue");
+        userRequestDto.setPhone("0987654321");
     }
 
     @Test
-    void findById_UserFound() {
+    void testFindById() {
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
-        when(userRepository.findById(1L)).thenReturn(Optional.of(users));
+        Users foundUser = userService.findById(1L);
 
-        Users foundUsers = userService.findById(1L);
-
-        assertNotNull(foundUsers);
-        assertEquals(1L, foundUsers.getId());
+        assertNotNull(foundUser);
+        assertEquals(user.getId(), foundUser.getId());
         verify(userRepository, times(1)).findById(1L);
     }
 
     @Test
-    void findById_UserNotFound(){
-
+    void testFindById_NotFound() {
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
+
         assertThrows(UserNotFoundException.class, () -> userService.findById(1L));
         verify(userRepository, times(1)).findById(1L);
     }
 
     @Test
-    void findAll(){
+    void testFindByEmail() {
+        when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(user));
 
-        Users users1 = new Users();
-        users1.setId(1L);
+        Users foundUser = userService.findByEmail("test@example.com");
 
-        Users users2 = new Users();
-        users2.setId(2L);
+        assertNotNull(foundUser);
+        assertEquals(user.getEmail(), foundUser.getEmail());
+        verify(userRepository, times(1)).findByEmail("test@example.com");
+    }
 
-        List<Users> users = List.of(users1, users2);
+    @Test
+    void testFindByEmail_NotFound() {
+        when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.empty());
+
+        assertThrows(UserNotFoundException.class, () -> userService.findByEmail("test@example.com"));
+        verify(userRepository, times(1)).findByEmail("test@example.com");
+    }
+
+    @Test
+    void testFindAll() {
+        List<Users> users = List.of(user);
         when(userRepository.findAll()).thenReturn(users);
+
         List<Users> foundUsers = userService.findAll();
 
         assertNotNull(foundUsers);
-        assertEquals(2, foundUsers.size());
-        assertEquals(1L, foundUsers.get(0).getId());
-        assertEquals(2L, foundUsers.get(1).getId());
+        assertFalse(foundUsers.isEmpty());
+        assertEquals(1, foundUsers.size());
         verify(userRepository, times(1)).findAll();
     }
 
     @Test
-    void crateUser() {
-        Users users = new Users();
-        users.setId(1L);
-        users.setName("Diego");
-        users.setEmail("diego@email.com");
-        users.setPassword("1234");
-        users.setAddress("Pastor Francisco Joaquim Mendonça");
-        users.setPhone("21980805734");
-        users.setAdmin(true);
-        users.setUserType(UserType.CLIENTE);
+    void testCreateUser() {
+        when(userRepository.save(any(Users.class))).thenReturn(user);
 
-        when(userRepository.save(users)).thenReturn(users);
+        Users createdUser = userService.createUser(user);
 
-        Users result = userService.createUser(users);
-
-        assertEquals(result, users);
-        verify(userRepository).save(users);
+        assertNotNull(createdUser);
+        assertEquals(user.getId(), createdUser.getId());
+        verify(userRepository, times(1)).save(any(Users.class));
     }
 
     @Test
-    void updateUserSuccessfully() {
+    void testUpdateUser() {
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+        when(userRepository.save(any(Users.class))).thenReturn(user);
 
-        Long userId = 1L;
-        Users user = new Users();
+        Users updatedUser = userService.updateUser(user.getId(), userRequestDto);
 
-        user.setId(userId);
-        user.setAddress("Rua A");
-
-        UserRequestDto userRequestDto = new UserRequestDto();
-        userRequestDto.setAddress("Rua B");
-
-        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-
-        Users updateUser = userService.updateUser(userId, userRequestDto);
-
-        assertEquals(userRequestDto.getAddress(), updateUser.getAddress());
-        verify(userRepository).findById(userId);
-
+        assertNotNull(updatedUser);
+        assertEquals(user.getId(), updatedUser.getId());
+        assertEquals(userRequestDto.getAddress(), updatedUser.getAddress());
+        assertEquals(userRequestDto.getPhone(), updatedUser.getPhone());
+        verify(userRepository, times(1)).findById(user.getId());
+        verify(userRepository, times(1)).save(any(Users.class));
     }
 
     @Test
-    void updateUserNotSuccessfully() {
+    void testUpdateUser_NotFound() {
+        when(userRepository.findById(user.getId())).thenReturn(Optional.empty());
 
-        Long userId = 1L;
-        UserRequestDto userRequestDto = new UserRequestDto();
-        userRequestDto.setAddress("Rua dos Anjos");
-
-        when(userRepository.findById(userId)).thenReturn(Optional.empty());
-        assertThrows(UserNotFoundException.class, () -> userService.updateUser(userId, userRequestDto));
-        verify(userRepository).findById(userId);
+        assertThrows(UserNotFoundException.class, () -> userService.updateUser(user.getId(), userRequestDto));
+        verify(userRepository, times(1)).findById(user.getId());
     }
 
     @Test
-    void deleteUser() {
+    void testDeleteUser() {
+        doNothing().when(userRepository).deleteById(user.getId());
 
-        Long userId = 1L;
+        userService.deleteUser(user.getId());
 
-        doNothing().when(userRepository).deleteById(userId);
-        userService.deleteUser(userId);
-
-        verify(userRepository).deleteById(userId);
-
+        verify(userRepository, times(1)).deleteById(user.getId());
     }
 }
