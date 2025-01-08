@@ -27,11 +27,11 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product updateProduct(Long id, ProductRequestDto productRequestDto){
+    public Product updateProduct(Long id, ProductRequestDto productRequestDto) {
         return productRepository.findById(id)
                 .map(product -> {
                     product.setPrice(productRequestDto.getPrice());
-                    return product;
+                    return productRepository.save(product);
                 }).orElseThrow(ProductNotFoundException::new);
     }
 
