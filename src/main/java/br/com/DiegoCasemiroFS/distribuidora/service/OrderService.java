@@ -54,7 +54,7 @@ public class OrderService {
                     orders.setUsersId(users);
                     orders.setProductId(product);
                     orders.setQuantity(orderRequestDto.getQuantity());
-                    return orderRepository.save(orders);  // Save the updated order
+                    return orderRepository.save(orders);
                 }).orElseThrow(OrderNotFoundException::new);
     }
 
