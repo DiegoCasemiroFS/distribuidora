@@ -3,6 +3,7 @@ package br.com.DiegoCasemiroFS.distribuidora.repository;
 import br.com.DiegoCasemiroFS.distribuidora.entity.Orders;
 import br.com.DiegoCasemiroFS.distribuidora.entity.Users;
 import br.com.DiegoCasemiroFS.distribuidora.entity.Product;
+import br.com.DiegoCasemiroFS.distribuidora.entity.enums.ProductType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +33,15 @@ class OrderRepositoryTest {
     void setUp() {
         user = new Users();
         user.setName("User Name");
+        user.setEmail("user@example.com");
+        user.setAddress("123 Main St");
+        user.setPhone("123-456-7890");
         entityManager.persistAndFlush(user);
 
         product = new Product();
         product.setName("Product Name");
+        product.setBrand("Brand Name");
+        product.setProductType(ProductType.CAPSULA);
         product.setPrice(BigDecimal.valueOf(100.0));
         entityManager.persistAndFlush(product);
 
