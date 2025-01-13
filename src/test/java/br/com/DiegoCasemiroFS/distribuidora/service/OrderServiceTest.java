@@ -17,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -77,6 +78,18 @@ class OrderServiceTest {
 
         assertThrows(OrderNotFoundException.class, () -> orderService.findById(1L));
         verify(orderRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    void testFindAll() {
+        List<Orders> ordersList = List.of(order);
+        when(orderRepository.findAll()).thenReturn(ordersList);
+
+        List<Orders> foundOrders = orderService.findAll();
+
+        assertNotNull(foundOrders);
+        assertEquals(1, foundOrders.size());
+        verify(orderRepository, times(1)).findAll();
     }
 
     @Test
