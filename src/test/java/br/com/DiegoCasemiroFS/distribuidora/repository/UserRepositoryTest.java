@@ -24,17 +24,17 @@ class UserRepositoryTest {
     private Users user;
 
     @BeforeEach
-void setUp() {
-    user = new Users();
-    user.setName("User Name");
-    user.setEmail("user@example.com");
-    user.setPassword("password");
-    user.setAddress("123 Main St");
-    user.setPhone("555-1234");
-    user.setAdmin(false);
-    user.setUserType(UserType.FORNECEDOR);
-    entityManager.persistAndFlush(user);
-}
+    void setUp() {
+        user = new Users();
+        user.setName("User Name");
+        user.setEmail("user@example.com");
+        user.setPassword("password");
+        user.setAddress("123 Main St");
+        user.setPhone("555-1234");
+        user.setAdmin(false);
+        user.setUserType(UserType.FORNECEDOR);
+        entityManager.persistAndFlush(user);
+    }
 
     @Test
     void testFindById() {
