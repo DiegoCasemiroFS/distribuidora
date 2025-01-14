@@ -1,6 +1,7 @@
 package br.com.DiegoCasemiroFS.distribuidora.repository;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.Users;
+import br.com.DiegoCasemiroFS.distribuidora.entity.enums.UserType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-class UserRepositoryTest {
+class C {
 
     @Autowired
     private UserRepository userRepository;
@@ -23,11 +24,17 @@ class UserRepositoryTest {
     private Users user;
 
     @BeforeEach
-    void setUp() {
-        user = new Users();
-        user.setName("User Name");
-        entityManager.persistAndFlush(user);
-    }
+void setUp() {
+    user = new Users();
+    user.setName("User Name");
+    user.setEmail("user@example.com");
+    user.setPassword("password");
+    user.setAddress("123 Main St");
+    user.setPhone("555-1234");
+    user.setAdmin(false);
+    user.setUserType(UserType.FORNECEDOR);
+    entityManager.persistAndFlush(user);
+}
 
     @Test
     void testFindById() {
