@@ -1,6 +1,7 @@
 package br.com.DiegoCasemiroFS.distribuidora.repository;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.Product;
+import br.com.DiegoCasemiroFS.distribuidora.entity.enums.ProductType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ class ProductRepositoryTest {
     void setUp() {
         product = new Product();
         product.setName("Product Name");
+        product.setBrand("Brand Name");
+        product.setProductType(ProductType.OLEO_ESSENCIAL);
         product.setPrice(BigDecimal.valueOf(100.0));
         entityManager.persistAndFlush(product);
     }
