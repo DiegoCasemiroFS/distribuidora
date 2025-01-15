@@ -1,18 +1,41 @@
-***API DISTRIBUIDORA***
+# API Distribuidora
 
-**Função:**
-- Facilitar o gerenciamento dos Clientes e Fornecedores de uma Distribuidora
+Esta é a API para a aplicação Distribuidora, desenvolvida em Java com Spring Boot.
+
+## Tecnologias Utilizadas
+
+- Java
+- Spring Boot
+- Maven
+- PostgreSQL
+
+## Configuração do Ambiente
+
+1. **Clone o repositório:**
+   ```sh
+   git clone https://github.com/DiegoCasemiroFS/distribuidora.git
+   cd distribuidora
+
+## Documentação
+
+```bash
+http://localhost:8080/v3/api-docs
+```
+
+```bash
+http://localhost:8080/swagger-ui/index.html
+```
 
 **Diagrama de classes:**
 
 ```mermaid
 classDiagram   
-    class Order {
+    class Orders {
         +Long id;
-        +User userId;
+        +Users userId;
         +Product productId;
         +Integer quantity;
-        +LocalDate orderdate;
+        +LocalDate orderDate;
         
         +findOrderById(Long id)
         +findAllOrders()
@@ -35,7 +58,7 @@ classDiagram
         +deleteProduct(Long id)
     }
     
-        class User {
+    class Users {
         +Long id;
         +String name;
         +String email;
@@ -52,6 +75,6 @@ classDiagram
         +deleteUser(Long id)
     }
 
-    User "1" --> "n" Order
-    Product "1" --> "n" Order
+    Users "1" --> "n" Orders
+    Product "1" --> "n" Orders
 ```
