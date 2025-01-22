@@ -31,14 +31,15 @@ public class Users implements UserDetails {
 
     private String password;
 
-    private String address;
-
     private String phone;
-
-    private boolean admin;
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    @Embedded
+    private Address address;
+
+    private boolean admin;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
