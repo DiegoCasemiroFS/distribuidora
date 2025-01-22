@@ -1,16 +1,15 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity.dtos;
 
+import br.com.DiegoCasemiroFS.distribuidora.entity.Address;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRequestDto {
 
-    private String address;
+    private Address address;
     private String phone;
 }
