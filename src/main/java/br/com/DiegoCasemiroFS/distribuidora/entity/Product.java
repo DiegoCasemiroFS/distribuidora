@@ -23,10 +23,10 @@ public class Product {
 
     private String name;
 
-    private String brand;
-
     @Enumerated(EnumType.STRING)
     private ProductType productType;
+
+    private Integer quantity;
 
     private BigDecimal price;
 }
