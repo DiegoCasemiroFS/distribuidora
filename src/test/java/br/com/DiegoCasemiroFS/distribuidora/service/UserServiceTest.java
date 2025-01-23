@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.security.auth.login.LoginException;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,7 +95,7 @@ class UserServiceTest {
     }
 
     @Test
-    void testCreateUser() {
+    void testCreateUser() throws LoginException {
         when(userRepository.save(any(Users.class))).thenReturn(user);
 
         Users createdUser = userService.createUser(user);

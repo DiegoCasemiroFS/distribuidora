@@ -6,6 +6,7 @@ import br.com.DiegoCasemiroFS.distribuidora.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.login.LoginException;
 import java.util.List;
 
 @RestController
@@ -26,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/createUser")
-    public Users createUser(@RequestBody Users users){
+    public Users createUser(@RequestBody Users users) throws LoginException {
         return userService.createUser(users);
     }
 
