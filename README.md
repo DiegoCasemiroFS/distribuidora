@@ -7,14 +7,14 @@ Esta é a API para a aplicação Distribuidora, desenvolvida em Java com Spring 
 - Java
 - Spring Boot
 - Maven
-- PostgreSQL
+- H2 Database
 
 ## Configuração do Ambiente
 
 1. **Clone o repositório:**
-   ```sh
-   git clone https://github.com/DiegoCasemiroFS/distribuidora.git
-   cd distribuidora
+```bash
+git clone https://github.com/DiegoCasemiroFS/distribuidora.git
+```
 
 ## Documentação
 
@@ -26,55 +26,71 @@ http://localhost:8080/v3/api-docs
 http://localhost:8080/swagger-ui/index.html
 ```
 
-**Diagrama de classes:**
+## Diagrama de classes:
 
 ```mermaid
-classDiagram   
-    class Orders {
-        +Long id;
-        +Users userId;
-        +Product productId;
-        +Integer quantity;
-        +LocalDate orderDate;
-        
-        +findOrderById(Long id)
-        +findAllOrders()
-        +createOrder(OrderRequestDto orderRequestDto)
-        +updateOrder(Long id, OrderRequestDto orderRequestDto)
-        +deleteOrder(Long id)
-    }
-    
-    class Product {
-        +Long id;
-        +String name;
-        +String brand;
-        +ProductType productType
-        +BigDecimal price;
-        
-        +findProductById(Long id)
-        +findAllProducts()
-        +createProduct(Product product)
-        +updateProduct(Long id, ProductRequestDto productRequestDto)
-        +deleteProduct(Long id)
-    }
-    
-    class Users {
-        +Long id;
-        +String name;
-        +String email;
-        +String password;
-        +String address;
-        +String phone;
-        +boolean admin;
-        +UserType userType
-        
-        +findUserById(Long id)
-        +findAllUsers()
-        +createUser(Users users)
-        +updateUser(Long id, UserRequestDto userRequestDto)
-        +deleteUser(Long id)
+classDiagram
+    class Movimentacao {
+        +Long id
+        +Usuario usuarioId
+        +Produto produtoId
+        +Integer quantidade
+        +Integer estoque
+        +LocalDate dataPedido
+
+        +procuraPorId(Long id)
+        +listaTodas()
+        +vendaCliente(MovimentacaoRequestDto movimentacaoRequestDto)
+        +compraFornecedor(MovimentacaoRequestDto movimentacaoRequestDto)
+        +deletaMovimentacao(Long id)
     }
 
-    Users "1" --> "n" Orders
-    Product "1" --> "n" Orders
+    class Produto {
+        +Long id
+        +String nome
+        +TipoProduto tipoProduto
+        +Integer quantidade
+        +BigDecimal preco
+
+        +procuraPorId(Long id)
+        +listaTodos()
+        +cadastraProduto(Produto produto)
+        +alteraPreco(Long id, ProdutoRequestDto produtoRequestDto)
+        +alteraEstoque(Long id, ProdutoRequestDto produtoRequestDto)
+        +deletaProduto(Long id)
+    }
+
+    class Usuario {
+        
+        +Long id
+        +String nome
+        +String email
+        +String senha
+        +String contato
+        +Endereco endereco
+        +TipoUsuario tipoUsuario
+        +boolean admin
+
+        +procuraPorId(Long id)
+        +procuraPorEmail(String email)
+        +listaTodos()
+        +cadastraUsuario(Usuario usuario)
+        +login(LoginRequestDto requestDto)
+        +alteraUsuario(Long id, UsuarioRequestDto usuarioRequestDto)
+        +deletaUsuario(Long id)
+    }
+
+    class Endereco {
+        +String rua
+        +Integer numero
+        +String complemento
+        +String bairro
+        +String cidade
+        +String estado
+        +String cep
+    }
+
+    Usuario "1" --> "n" Pedido
+    Produto "1" --> "n" Pedido
+    Usuario "1" --> "1" Endereco
 ```
