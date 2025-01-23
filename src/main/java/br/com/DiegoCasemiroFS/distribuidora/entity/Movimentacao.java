@@ -28,6 +28,8 @@ public class Movimentacao {
     @JoinColumn(name = "produto_id")
     private Produto produtoId;
 
+    private Integer quantidade;
+
     private Integer estoque;
 
     private LocalDate dataPedido = LocalDate.now();
