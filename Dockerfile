@@ -1,5 +1,5 @@
-# Use a imagem base do OpenJDK 22
-FROM openjdk:22-jdk-slim
+# Use a imagem base do OpenJDK 21
+FROM openjdk:21-jdk-slim
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
