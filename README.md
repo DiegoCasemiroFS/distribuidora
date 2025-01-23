@@ -1,6 +1,6 @@
 # API Distribuidora
 
-Esta é a API para a aplicação Distribuidora, desenvolvida em Java com Spring Boot.
+API de gerenciamento de vendas, Produtos e Usuários de uma distribuidora.
 
 ## Tecnologias Utilizadas
 
@@ -14,16 +14,6 @@ Esta é a API para a aplicação Distribuidora, desenvolvida em Java com Spring 
 1. **Clone o repositório:**
 ```bash
 git clone https://github.com/DiegoCasemiroFS/distribuidora.git
-```
-
-## Documentação
-
-```bash
-http://localhost:8080/v3/api-docs
-```
-
-```bash
-http://localhost:8080/swagger-ui/index.html
 ```
 
 ## Diagrama de classes:
@@ -90,7 +80,7 @@ classDiagram
         +String cep
     }
 
-    Usuario "1" --> "n" Pedido
-    Produto "1" --> "n" Pedido
+    Usuario "1" --> "n" Movimentacao
+    Produto "1" --> "n" Movimentacao
     Usuario "1" --> "1" Endereco
 ```
