@@ -1,17 +1,15 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity.dtos;
 
+import br.com.DiegoCasemiroFS.distribuidora.entity.Endereco;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.math.BigDecimal;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductRequestDto {
+public class UsuarioRequestDto {
 
-    private BigDecimal price;
+    private String contato;
+    private Endereco endereco;
 }

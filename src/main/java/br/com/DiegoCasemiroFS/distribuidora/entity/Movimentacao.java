@@ -13,22 +13,22 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Pedido")
-public class Orders {
+@Table(name = "movimentacao")
+public class Movimentacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Users usersId;
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuarioId;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product productId;
+    @JoinColumn(name = "produto_id")
+    private Produto produtoId;
 
-    private Integer quantity;
+    private Integer estoque;
 
-    private LocalDate orderDate = LocalDate.now();
+    private LocalDate dataPedido = LocalDate.now();
 }

@@ -1,13 +1,13 @@
 package br.com.DiegoCasemiroFS.distribuidora.repository;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.Users;
+import br.com.DiegoCasemiroFS.distribuidora.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users, Long> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-    Optional<Users> findByEmail(String email);
+    Optional<Usuario> findByEmail(String email);
 }

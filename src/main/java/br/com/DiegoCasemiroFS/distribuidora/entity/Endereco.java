@@ -11,12 +11,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
+public class Endereco {
 
-    private String street;
-    private String number;
-    private String neighborhood;
-    private String city;
-    private String state;
-    private String zipCode;
+    private String rua;
+    private Integer numero;
+    private String complemento;
+    private String bairro;
+    private String cidade;
+    private String estado;
+    private String cep;
 }
