@@ -1,4 +1,4 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity.dtos;
+package br.com.DiegoCasemiroFS.distribuidora.entity.movimentacao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
