@@ -1,8 +1,8 @@
 package br.com.DiegoCasemiroFS.distribuidora.controller;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.Usuario;
-import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.LoginRequestDto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.UsuarioRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.Usuario;
+import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.LoginRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.UsuarioRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
