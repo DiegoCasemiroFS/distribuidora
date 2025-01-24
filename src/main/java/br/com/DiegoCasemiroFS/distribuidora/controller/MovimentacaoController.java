@@ -1,8 +1,8 @@
 package br.com.DiegoCasemiroFS.distribuidora.controller;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.Movimentacao;
-import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.MovimentacaoRequestDto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.MovimentacaoResponseDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.movimentacao.Movimentacao;
+import br.com.DiegoCasemiroFS.distribuidora.entity.movimentacao.MovimentacaoRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.movimentacao.MovimentacaoResponseDto;
 import br.com.DiegoCasemiroFS.distribuidora.service.MovimentacaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
