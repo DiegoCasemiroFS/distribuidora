@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.repository;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.Usuario;
+import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
