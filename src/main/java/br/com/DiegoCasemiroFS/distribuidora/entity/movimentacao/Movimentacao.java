@@ -1,5 +1,7 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity;
+package br.com.DiegoCasemiroFS.distribuidora.entity.movimentacao;
 
+import br.com.DiegoCasemiroFS.distribuidora.entity.produto.Produto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
