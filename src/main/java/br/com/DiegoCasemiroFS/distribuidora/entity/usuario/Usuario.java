@@ -1,6 +1,6 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity;
+package br.com.DiegoCasemiroFS.distribuidora.entity.usuario;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.enums.TipoUsuario;
+import br.com.DiegoCasemiroFS.distribuidora.entity.endereco.Endereco;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
