@@ -1,6 +1,5 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity;
+package br.com.DiegoCasemiroFS.distribuidora.entity.produto;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.enums.TipoProduto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,14 +27,6 @@ public class Produto {
 
     private BigDecimal preco;
 
-    private Integer quantidade;
-
     private Integer estoque;
-
-    private BigDecimal valorTotal;
-
-    public BigDecimal getValorTotal() {
-        return preco.multiply(BigDecimal.valueOf(quantidade));
-    }
 
 }
