@@ -39,14 +39,15 @@ public class MovimentacaoService {
         Usuario usuario = usuarioRepository.findById(movimentacaoRequestDto.getUsuarioId()).orElseThrow(UsuarioNaoEncontradoException::new);
         Produto produto = produtoRepository.findById(movimentacaoRequestDto.getProdutoId()).orElseThrow(ProdutoNaoEncontradoException::new);
 
-        if (produto.getQuantidade() > movimentacaoRequestDto.getQuantidade()){
-            produto.setQuantidade(produto.getQuantidade() - movimentacaoRequestDto.getQuantidade());
+        if (produto.getEstoque() > movimentacaoRequestDto.getQuantidade()){
+            produto.setEstoque(produto.getQuantidade() - movimentacaoRequestDto.getQuantidade());
             produtoRepository.save(produto);
 
             MovimentacaoResponseDto venda = new MovimentacaoResponseDto();
             venda.setNomeUsuario(usuario.getNome());
             venda.setNomeProduto(produto.getNome());
             venda.setQuantidade(movimentacaoRequestDto.getQuantidade());
+            venda.setValorTotal(produto.getValorTotal());
             venda.setDataVenda(LocalDate.now());
 
             return venda;
@@ -59,7 +60,7 @@ public class MovimentacaoService {
         Produto produto = produtoRepository.findById(movimentacaoRequestDto.getProdutoId()).orElseThrow(ProdutoNaoEncontradoException::new);
 
         if (usuario.getTipoUsuario() == TipoUsuario.FORNECEDOR){
-            produto.setQuantidade(produto.getQuantidade() + movimentacaoRequestDto.getQuantidade());
+            produto.setEstoque(produto.getEstoque() + movimentacaoRequestDto.getQuantidade());
             produtoRepository.save(produto);
 
             MovimentacaoResponseDto compra = new MovimentacaoResponseDto();
