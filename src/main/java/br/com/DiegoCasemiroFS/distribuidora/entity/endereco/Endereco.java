@@ -1,4 +1,4 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity;
+package br.com.DiegoCasemiroFS.distribuidora.entity.endereco;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
