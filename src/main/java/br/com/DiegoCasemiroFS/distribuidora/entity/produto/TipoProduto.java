@@ -1,4 +1,4 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity.enums;
+package br.com.DiegoCasemiroFS.distribuidora.entity.produto;
 
 public enum TipoProduto {
     CAPSULA,

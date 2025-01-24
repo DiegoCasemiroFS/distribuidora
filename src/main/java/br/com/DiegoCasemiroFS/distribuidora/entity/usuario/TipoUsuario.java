@@ -1,4 +1,4 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity.enums;
+package br.com.DiegoCasemiroFS.distribuidora.entity.usuario;
 
 public enum TipoUsuario {
     GERENTE,
