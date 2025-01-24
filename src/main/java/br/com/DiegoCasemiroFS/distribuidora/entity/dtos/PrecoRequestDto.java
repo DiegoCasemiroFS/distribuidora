@@ -11,8 +11,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProdutoRequestDto {
+public class PrecoRequestDto {
 
-    private Integer quantidade;
     private BigDecimal preco;
 }
