@@ -1,12 +1,14 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.Produto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.ProdutoRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.EstoqueRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.PrecoRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProdutoNaoEncontradoException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -28,19 +30,19 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
-    public Produto alteraPreco(Long id, ProdutoRequestDto produtoRequestDto) {
+    public Produto alteraPreco(Long id, PrecoRequestDto precoRequestDto) {
         return produtoRepository.findById(id)
                 .map(produto -> {
-                    produto.setPreco(produtoRequestDto.getPreco());
+                    produto.setPreco(precoRequestDto.getPreco());
                     return produtoRepository.save(produto);
                 })
                 .orElseThrow(ProdutoNaoEncontradoException::new);
     }
 
-    public Produto alteraEstoque(Long id, ProdutoRequestDto produtoRequestDto) {
+    public Produto alteraEstoque(Long id, EstoqueRequestDto estoqueRequestDto) {
         return produtoRepository.findById(id)
                 .map(produto -> {
-                    produto.setQuantidade(produtoRequestDto.getQuantidade());
+                    produto.setEstoque(estoqueRequestDto.getQuantidade());
                     return produtoRepository.save(produto);
                 })
                 .orElseThrow(ProdutoNaoEncontradoException::new);
