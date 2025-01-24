@@ -1,8 +1,9 @@
 package br.com.DiegoCasemiroFS.distribuidora.controller;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.Produto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.EstoqueRequestDto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.PrecoRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.produto.CadastroRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.produto.Produto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.produto.EstoqueRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.produto.PrecoRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +29,8 @@ public class ProdutoController {
     }
 
     @PostMapping("/cadastraProduto")
-    public ResponseEntity<Produto> cadastraProduto(@RequestBody Produto produto) {
-        return ResponseEntity.ok(produtoService.cadastraproduto(produto));
+    public ResponseEntity<Produto> cadastraProduto(@RequestBody CadastroRequestDto cadastroRequestDto) {
+        return ResponseEntity.ok(produtoService.cadastraproduto(cadastroRequestDto));
     }
 
     @PutMapping("/alteraPreco/{id}")
