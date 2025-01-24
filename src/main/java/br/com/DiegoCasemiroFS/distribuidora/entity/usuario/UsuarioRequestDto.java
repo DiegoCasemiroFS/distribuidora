@@ -1,6 +1,6 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity.dtos;
+package br.com.DiegoCasemiroFS.distribuidora.entity.usuario;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.Endereco;
+import br.com.DiegoCasemiroFS.distribuidora.entity.endereco.Endereco;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
