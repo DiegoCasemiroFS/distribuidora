@@ -1,11 +1,11 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.Movimentacao;
-import br.com.DiegoCasemiroFS.distribuidora.entity.Produto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.Usuario;
-import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.MovimentacaoRequestDto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.dtos.MovimentacaoResponseDto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.enums.TipoUsuario;
+import br.com.DiegoCasemiroFS.distribuidora.entity.movimentacao.Movimentacao;
+import br.com.DiegoCasemiroFS.distribuidora.entity.produto.Produto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.Usuario;
+import br.com.DiegoCasemiroFS.distribuidora.entity.movimentacao.MovimentacaoRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.movimentacao.MovimentacaoResponseDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.TipoUsuario;
 import br.com.DiegoCasemiroFS.distribuidora.exception.MovimentacaoNaoEncontradaException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProdutoNaoEncontradoException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UsuarioNaoEncontradoException;
@@ -15,6 +15,7 @@ import br.com.DiegoCasemiroFS.distribuidora.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -40,14 +41,14 @@ public class MovimentacaoService {
         Produto produto = produtoRepository.findById(movimentacaoRequestDto.getProdutoId()).orElseThrow(ProdutoNaoEncontradoException::new);
 
         if (produto.getEstoque() > movimentacaoRequestDto.getQuantidade()){
-            produto.setEstoque(produto.getQuantidade() - movimentacaoRequestDto.getQuantidade());
+            produto.setEstoque(produto.getEstoque() - movimentacaoRequestDto.getQuantidade());
             produtoRepository.save(produto);
 
             MovimentacaoResponseDto venda = new MovimentacaoResponseDto();
             venda.setNomeUsuario(usuario.getNome());
             venda.setNomeProduto(produto.getNome());
             venda.setQuantidade(movimentacaoRequestDto.getQuantidade());
-            venda.setValorTotal(produto.getValorTotal());
+            venda.setValorTotal(produto.getPreco().multiply(BigDecimal.valueOf(movimentacaoRequestDto.getQuantidade())));
             venda.setDataVenda(LocalDate.now());
 
             return venda;
