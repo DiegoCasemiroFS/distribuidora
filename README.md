@@ -45,8 +45,8 @@ classDiagram
         +procuraPorId(Long id)
         +listaTodos()
         +cadastraProduto(Produto produto)
-        +alteraPreco(Long id, ProdutoRequestDto produtoRequestDto)
-        +alteraEstoque(Long id, ProdutoRequestDto produtoRequestDto)
+        +alteraPreco(Long id, ProdutoRequestDto precoRequestDto)
+        +alteraEstoque(Long id, ProdutoRequestDto precoRequestDto)
         +deletaProduto(Long id)
     }
 
