@@ -26,7 +26,16 @@ public class Produto {
     @Enumerated(EnumType.STRING)
     private TipoProduto tipoProduto;
 
+    private BigDecimal preco;
+
     private Integer quantidade;
 
-    private BigDecimal preco;
+    private Integer estoque;
+
+    private BigDecimal valorTotal;
+
+    public BigDecimal getValorTotal() {
+        return preco.multiply(BigDecimal.valueOf(quantidade));
+    }
+
 }
