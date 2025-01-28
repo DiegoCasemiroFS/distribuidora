@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UsuarioRequestDto {
 
-    private String contato;
+    private String telefone;
     private Endereco endereco;
 }
