@@ -23,7 +23,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.procuraPorId(id));
     }
 
-    @GetMapping("/procuraPorEmail/{email}")
+    @GetMapping("/procuraPorEmail")
     public ResponseEntity<Usuario> procuraPorEmail(@RequestParam String email) {
         return ResponseEntity.ok(usuarioService.procuraPorEmail(email));
     }
