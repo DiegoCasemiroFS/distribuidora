@@ -41,7 +41,7 @@ public class UsuarioService {
             novoUsuario.setNome(usuario.getNome());
             novoUsuario.setEmail(usuario.getEmail());
             novoUsuario.setSenha(usuario.getSenha());
-            novoUsuario.setContato(usuario.getContato());
+            novoUsuario.setTelefone(usuario.getTelefone());
             novoUsuario.setEndereco(usuario.getEndereco());
             novoUsuario.setTipoUsuario(usuario.getTipoUsuario());
             novoUsuario.setAdmin(usuario.isAdmin());
@@ -55,7 +55,7 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findByEmail(requestDto.getEmail())
                 .orElseThrow(UsuarioNaoEncontradoException::new);
 
-        if (requestDto.getPassword().equals(usuario.getSenha())){
+        if (requestDto.getSenha().equals(usuario.getSenha())){
             return usuario;
         }
         throw new LoginNaoRealizadoException();
@@ -64,8 +64,8 @@ public class UsuarioService {
     public Usuario alteraUsuario(Long id, UsuarioRequestDto usuarioRequestDto) {
         return usuarioRepository.findById(id)
                 .map(usuario -> {
+                    usuario.setTelefone(usuarioRequestDto.getTelefone());
                     usuario.setEndereco(usuarioRequestDto.getEndereco());
-                    usuario.setContato(usuarioRequestDto.getContato());
                     return usuarioRepository.save(usuario);
                 }).orElseThrow(UsuarioNaoEncontradoException::new);
     }
