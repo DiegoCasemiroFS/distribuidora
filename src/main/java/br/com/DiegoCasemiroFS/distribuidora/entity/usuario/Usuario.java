@@ -25,7 +25,7 @@ public class Usuario{
 
     private String senha;
 
-    private String contato;
+    private String telefone;
 
     @Embedded
     private Endereco endereco;
