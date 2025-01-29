@@ -11,6 +11,6 @@ CREATE TABLE usuario (
     cidade VARCHAR(255),
     estado VARCHAR(255),
     cep VARCHAR(20),
-    tipoUsuario VARCHAR(50),
+    tipo_usuario VARCHAR(50),
     admin BOOLEAN
 );
