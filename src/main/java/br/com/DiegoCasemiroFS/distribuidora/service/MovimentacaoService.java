@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -46,8 +47,15 @@ public class MovimentacaoService {
 
             Movimentacao movimentacao = new Movimentacao();
             movimentacao.setUsuarioId(usuario);
+            movimentacao.setNomeUsuario(usuario.getNome());
             movimentacao.setProdutoId(produto);
-            movimentacao.setDataPedido(LocalDate.now());
+            movimentacao.setNomeProduto(produto.getNome());
+            movimentacao.setQuantidade(movimentacaoRequestDto.getQuantidade());
+            movimentacao.setEstoqueAtual(produto.getEstoque());
+            movimentacao.setValorUnitario(produto.getPreco());
+            movimentacao.setValorTotal(produto.getPreco().multiply(BigDecimal.valueOf(movimentacaoRequestDto.getQuantidade())));
+            movimentacao.setTipoMovimentacao(2);
+            movimentacao.setDataPedido(LocalDateTime.now());
 
             movimentacaoRepository.save(movimentacao);
 
@@ -73,8 +81,15 @@ public class MovimentacaoService {
 
             Movimentacao movimentacao = new Movimentacao();
             movimentacao.setUsuarioId(usuario);
+            movimentacao.setNomeUsuario(usuario.getNome());
             movimentacao.setProdutoId(produto);
-            movimentacao.setDataPedido(LocalDate.now());
+            movimentacao.setNomeProduto(produto.getNome());
+            movimentacao.setQuantidade(movimentacaoRequestDto.getQuantidade());
+            movimentacao.setEstoqueAtual(produto.getEstoque());
+            movimentacao.setValorUnitario(produto.getPreco());
+            movimentacao.setValorTotal(produto.getPreco().multiply(BigDecimal.valueOf(movimentacaoRequestDto.getQuantidade())));
+            movimentacao.setTipoMovimentacao(1);
+            movimentacao.setDataPedido(LocalDateTime.now());
 
             movimentacaoRepository.save(movimentacao);
 
