@@ -8,7 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -26,9 +27,23 @@ public class Movimentacao {
     @JoinColumn(name = "usuario_id")
     private Usuario usuarioId;
 
+    private String nomeUsuario;
+
     @ManyToOne
     @JoinColumn(name = "produto_id")
     private Produto produtoId;
 
-    private LocalDate dataPedido = LocalDate.now();
+    private String nomeProduto;
+
+    private Integer quantidade;
+
+    private Integer estoqueAtual;
+
+    private BigDecimal valorUnitario;
+
+    private BigDecimal valorTotal;
+
+    private Integer tipoMovimentacao; // 1 - Entrada, 2 - Saída
+
+    private LocalDateTime dataPedido = LocalDateTime.now();
 }
