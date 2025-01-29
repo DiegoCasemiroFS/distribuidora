@@ -1,13 +1,13 @@
 # API Distribuidora
 
-API de gerenciamento de vendas, Produtos e Usuários de uma distribuidora.
+API de gestão de Vendas, Produtos e Usuários de uma distribuidora.
 
 ## Tecnologias Utilizadas
 
 - Java
 - Spring Boot
 - Maven
-- H2 Database
+- PostgreSQL
 
 ## Configuração do Ambiente
 
@@ -23,10 +23,15 @@ classDiagram
     class Movimentacao {
         +Long id
         +Usuario usuarioId
+        +String nomeUsuario
         +Produto produtoId
+        +String nomeProduto
         +Integer quantidade
-        +Integer estoque
-        +LocalDate dataPedido
+        +Integer estoqueAtual
+        +BigDecimal valorUnitario
+        +BigDecimal valorTotal
+        +Integer tipoMovimentacao
+        +LocalDateTime dataPedido
 
         +procuraPorId(Long id)
         +listaTodas()
@@ -51,7 +56,6 @@ classDiagram
     }
 
     class Usuario {
-        
         +Long id
         +String nome
         +String email
