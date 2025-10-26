@@ -1,6 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.User;
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.User;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;

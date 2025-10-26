@@ -1,8 +1,8 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.User;
-import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.LoginRequestDto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.UserRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.User;
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.LoginRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.UserRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.exception.LoginNotSuccessfulException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;

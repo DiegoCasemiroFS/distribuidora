@@ -1,6 +1,6 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity.usuario;
+package br.com.DiegoCasemiroFS.distribuidora.entity.users;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.endereco.Endereco;
+import br.com.DiegoCasemiroFS.distribuidora.entity.address.Address;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "usuario")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -28,7 +28,7 @@ public class User {
     private String phone;
 
     @Embedded
-    private Endereco address;
+    private Address address;
 
     @Enumerated(EnumType.STRING)
     private UserType userType;

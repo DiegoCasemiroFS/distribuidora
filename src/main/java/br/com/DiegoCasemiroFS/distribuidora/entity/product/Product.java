@@ -1,4 +1,4 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity.produto;
+package br.com.DiegoCasemiroFS.distribuidora.entity.product;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,20 +13,20 @@ import java.math.BigDecimal;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "produto")
-public class Produto {
+@Table(name = "product")
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    private String name;
 
     @Enumerated(EnumType.STRING)
-    private TipoProduto tipoProduto;
+    private ProductType productType;
 
-    private BigDecimal preco;
+    private BigDecimal price;
 
-    private Integer estoque;
+    private Integer stock;
 
 }

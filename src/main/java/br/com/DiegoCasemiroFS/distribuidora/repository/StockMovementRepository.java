@@ -1,10 +1,10 @@
 package br.com.DiegoCasemiroFS.distribuidora.repository;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.movimentacao.Movimentacao;
+import br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.StockMovement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MovimentacaoRepository extends JpaRepository<Movimentacao, Long> {
+public interface StockMovementRepository extends JpaRepository<StockMovement, Long> {
 
 }

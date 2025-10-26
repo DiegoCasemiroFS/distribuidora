@@ -1,15 +1,17 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity.produto;
+package br.com.DiegoCasemiroFS.distribuidora.entity.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EstoqueRequestDto {
+public class PriceRequestDto {
 
-    private Integer quantidade;
+    private BigDecimal price;
 }

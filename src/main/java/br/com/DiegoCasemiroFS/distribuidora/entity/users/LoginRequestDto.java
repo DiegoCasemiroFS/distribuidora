@@ -1,4 +1,4 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity.usuario;
+package br.com.DiegoCasemiroFS.distribuidora.entity.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

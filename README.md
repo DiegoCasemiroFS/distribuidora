@@ -35,8 +35,8 @@ classDiagram
 
         +procuraPorId(Long id)
         +listaTodas()
-        +vendaCliente(MovimentacaoRequestDto movimentacaoRequestDto)
-        +compraFornecedor(MovimentacaoRequestDto movimentacaoRequestDto)
+        +vendaCliente(MovimentacaoRequestDto stockMovementRequestDto)
+        +compraFornecedor(MovimentacaoRequestDto stockMovementRequestDto)
         +deletaMovimentacao(Long id)
     }
 
@@ -49,9 +49,9 @@ classDiagram
 
         +procuraPorId(Long id)
         +listaTodos()
-        +cadastraProduto(Produto produto)
-        +alteraPreco(Long id, ProdutoRequestDto precoRequestDto)
-        +alteraEstoque(Long id, ProdutoRequestDto precoRequestDto)
+        +cadastraProduto(Produto product)
+        +alteraPreco(Long id, ProdutoRequestDto priceRequestDto)
+        +alteraEstoque(Long id, ProdutoRequestDto priceRequestDto)
         +deletaProduto(Long id)
     }
 

@@ -1,8 +1,8 @@
 package br.com.DiegoCasemiroFS.distribuidora.controller;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.User;
-import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.LoginRequestDto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.UserRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.User;
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.LoginRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.UserRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import javax.security.auth.login.LoginException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 

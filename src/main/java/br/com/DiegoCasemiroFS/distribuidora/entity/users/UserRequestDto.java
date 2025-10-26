@@ -1,6 +1,6 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity.usuario;
+package br.com.DiegoCasemiroFS.distribuidora.entity.users;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.endereco.Endereco;
+import br.com.DiegoCasemiroFS.distribuidora.entity.address.Address;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class UserRequestDto {
 
     private String phone;
-    private Endereco address;
+    private Address address;
 }
