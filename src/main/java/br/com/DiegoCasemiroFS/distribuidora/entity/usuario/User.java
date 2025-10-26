@@ -13,25 +13,25 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "usuario")
-public class Usuario{
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    private String name;
 
     private String email;
 
-    private String senha;
+    private String password;
 
-    private String telefone;
+    private String phone;
 
     @Embedded
-    private Endereco endereco;
+    private Endereco address;
 
     @Enumerated(EnumType.STRING)
-    private TipoUsuario tipoUsuario;
+    private UserType userType;
 
     private boolean admin;
 }

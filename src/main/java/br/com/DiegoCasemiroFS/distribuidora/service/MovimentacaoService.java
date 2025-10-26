@@ -2,16 +2,16 @@ package br.com.DiegoCasemiroFS.distribuidora.service;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.movimentacao.Movimentacao;
 import br.com.DiegoCasemiroFS.distribuidora.entity.produto.Produto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.Usuario;
+import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.User;
 import br.com.DiegoCasemiroFS.distribuidora.entity.movimentacao.MovimentacaoRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.movimentacao.MovimentacaoResponseDto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.TipoUsuario;
+import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.UserType;
 import br.com.DiegoCasemiroFS.distribuidora.exception.MovimentacaoNaoEncontradaException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProdutoNaoEncontradoException;
-import br.com.DiegoCasemiroFS.distribuidora.exception.UsuarioNaoEncontradoException;
+import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.MovimentacaoRepository;
 import br.com.DiegoCasemiroFS.distribuidora.repository.ProdutoRepository;
-import br.com.DiegoCasemiroFS.distribuidora.repository.UsuarioRepository;
+import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ import java.util.List;
 public class MovimentacaoService {
 
     private final MovimentacaoRepository movimentacaoRepository;
-    private final UsuarioRepository usuarioRepository;
+    private final UserRepository userRepository;
     private final ProdutoRepository produtoRepository;
 
     public Movimentacao procuraPorId(Long id){
@@ -38,7 +38,7 @@ public class MovimentacaoService {
     }
 
     public MovimentacaoResponseDto vendaCliente(MovimentacaoRequestDto movimentacaoRequestDto){
-        Usuario usuario = usuarioRepository.findById(movimentacaoRequestDto.getUsuarioId()).orElseThrow(UsuarioNaoEncontradoException::new);
+        User user = userRepository.findById(movimentacaoRequestDto.getUsuarioId()).orElseThrow(UserNotFoundException::new);
         Produto produto = produtoRepository.findById(movimentacaoRequestDto.getProdutoId()).orElseThrow(ProdutoNaoEncontradoException::new);
 
         if (produto.getEstoque() >= movimentacaoRequestDto.getQuantidade()){
@@ -46,8 +46,8 @@ public class MovimentacaoService {
             produtoRepository.save(produto);
 
             Movimentacao movimentacao = new Movimentacao();
-            movimentacao.setUsuarioId(usuario);
-            movimentacao.setNomeUsuario(usuario.getNome());
+            movimentacao.setUserId(user);
+            movimentacao.setNomeUsuario(user.getName());
             movimentacao.setProdutoId(produto);
             movimentacao.setNomeProduto(produto.getNome());
             movimentacao.setQuantidade(movimentacaoRequestDto.getQuantidade());
@@ -60,7 +60,7 @@ public class MovimentacaoService {
             movimentacaoRepository.save(movimentacao);
 
             MovimentacaoResponseDto venda = new MovimentacaoResponseDto();
-            venda.setNomeUsuario(usuario.getNome());
+            venda.setNomeUsuario(user.getName());
             venda.setNomeProduto(produto.getNome());
             venda.setQuantidade(movimentacaoRequestDto.getQuantidade());
             venda.setValorTotal(produto.getPreco().multiply(BigDecimal.valueOf(movimentacaoRequestDto.getQuantidade())));
@@ -72,16 +72,16 @@ public class MovimentacaoService {
     }
 
     public MovimentacaoResponseDto compraFornecedor(MovimentacaoRequestDto movimentacaoRequestDto){
-        Usuario usuario = usuarioRepository.findById(movimentacaoRequestDto.getUsuarioId()).orElseThrow(UsuarioNaoEncontradoException::new);
+        User user = userRepository.findById(movimentacaoRequestDto.getUsuarioId()).orElseThrow(UserNotFoundException::new);
         Produto produto = produtoRepository.findById(movimentacaoRequestDto.getProdutoId()).orElseThrow(ProdutoNaoEncontradoException::new);
 
-        if (usuario.getTipoUsuario() == TipoUsuario.FORNECEDOR){
+        if (user.getUserType() == UserType.FORNECEDOR){
             produto.setEstoque(produto.getEstoque() + movimentacaoRequestDto.getQuantidade());
             produtoRepository.save(produto);
 
             Movimentacao movimentacao = new Movimentacao();
-            movimentacao.setUsuarioId(usuario);
-            movimentacao.setNomeUsuario(usuario.getNome());
+            movimentacao.setUserId(user);
+            movimentacao.setNomeUsuario(user.getName());
             movimentacao.setProdutoId(produto);
             movimentacao.setNomeProduto(produto.getNome());
             movimentacao.setQuantidade(movimentacaoRequestDto.getQuantidade());
@@ -94,7 +94,7 @@ public class MovimentacaoService {
             movimentacaoRepository.save(movimentacao);
 
             MovimentacaoResponseDto compra = new MovimentacaoResponseDto();
-            compra.setNomeUsuario(usuario.getNome());
+            compra.setNomeUsuario(user.getName());
             compra.setNomeProduto(produto.getNome());
             compra.setQuantidade(movimentacaoRequestDto.getQuantidade());
             compra.setDataVenda(LocalDate.now());

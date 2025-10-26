@@ -68,9 +68,9 @@ classDiagram
         +procuraPorId(Long id)
         +procuraPorEmail(String email)
         +listaTodos()
-        +cadastraUsuario(Usuario usuario)
+        +cadastraUsuario(User user)
         +login(LoginRequestDto requestDto)
-        +alteraUsuario(Long id, UsuarioRequestDto usuarioRequestDto)
+        +alteraUsuario(Long id, UserRequestDto userRequestDto)
         +deletaUsuario(Long id)
     }
 

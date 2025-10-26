@@ -1,7 +1,7 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity.movimentacao;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.produto.Produto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.Usuario;
+import br.com.DiegoCasemiroFS.distribuidora.entity.usuario.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class Movimentacao {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    private Usuario usuarioId;
+    private User userId;
 
     private String nomeUsuario;
 

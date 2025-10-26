@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioRequestDto {
+public class UserRequestDto {
 
-    private String telefone;
-    private Endereco endereco;
+    private String phone;
+    private Endereco address;
 }
