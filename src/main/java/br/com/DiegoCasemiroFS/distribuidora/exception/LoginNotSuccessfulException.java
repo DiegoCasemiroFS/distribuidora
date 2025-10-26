@@ -1,8 +1,8 @@
 package br.com.DiegoCasemiroFS.distribuidora.exception;
 
-public class LoginNaoRealizadoException extends RuntimeException{
+public class LoginNotSuccessfulException extends RuntimeException{
 
-    public LoginNaoRealizadoException(){
+    public LoginNotSuccessfulException(){
         super("Email ou senha invalido, tente novamente!");
     }
 }
