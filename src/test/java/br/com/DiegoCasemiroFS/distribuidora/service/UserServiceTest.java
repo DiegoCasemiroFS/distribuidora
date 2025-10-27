@@ -2,6 +2,7 @@ package br.com.DiegoCasemiroFS.distribuidora.service;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.LoginRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.User;
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.UserRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.exception.LoginNotSuccessfulException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
@@ -23,7 +24,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class UsuarioServiceTest {
+class UserServiceTest {
 
     @InjectMocks
     private UserService userService;
@@ -37,8 +38,11 @@ class UsuarioServiceTest {
     @Captor
     private ArgumentCaptor<User> userCaptor;
 
+    @Mock
+    private UserRequestDto  userRequestDto;
+
     @Test
-    @DisplayName("Verifica se tem um Id válido")
+    @DisplayName("Verifica se o Usuário tem um Id válido")
     void teste01() {
         Long id = 1L;
 
@@ -52,7 +56,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    @DisplayName("Retorna exception quando o Id não é encontrado")
+    @DisplayName("Retorna exception para um ID inválido")
     void teste02() {
         Long id = 1L;
 
@@ -63,7 +67,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    @DisplayName("Verifica se tem um email válido")
+    @DisplayName("Verifica se um Email é válido")
     void teste03() {
         String email = "teste@email.com";
 
@@ -88,7 +92,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    @DisplayName("Cria um usuário se ele não existir no banco")
+    @DisplayName("Cria um Usuário se ele não existir no banco")
     void teste05() throws LoginException {
 
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
@@ -105,7 +109,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    @DisplayName("Verifica login com sucesso")
+    @DisplayName("Verifica tentativa de Login com sucesso")
     void teste06() {
         LoginRequestDto dto = new LoginRequestDto();
         dto.setEmail("teste@gmail.com");
@@ -126,7 +130,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    @DisplayName("Verifica login com usuário não existente")
+    @DisplayName("Verifica tentativa de Login com Usuário incorreto/inexistente")
     void teste07() {
         LoginRequestDto dto = new LoginRequestDto();
         dto.setEmail("teste@gmail.com");
@@ -139,7 +143,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    @DisplayName("Verifica login com senha incorreta")
+    @DisplayName("Verifica tentativa de Login com Senha incorreta")
     void teste08() {
         LoginRequestDto dto = new LoginRequestDto();
         dto.setEmail("teste@gmail.com");
@@ -154,4 +158,20 @@ class UsuarioServiceTest {
         assertThrows(LoginNotSuccessfulException.class, () -> userService.login(dto));
     }
 
+    @Test
+    @DisplayName("Verifica se os parametros para atualizar um Usuário estão corretos")
+    void teste09() {
+        Long id = 1L;
+
+        when(userRepository.findById(id)).thenReturn(Optional.of(user));
+        when(userRepository.save(any(User.class))).thenReturn(user);
+
+        userService.updateUser(id, userRequestDto);
+
+        verify(userRepository).save(userCaptor.capture());
+        User resultado = userCaptor.getValue();
+
+        assertNotNull(resultado);
+        assertEquals(user.getEmail(), resultado.getEmail());
+    }
 }
