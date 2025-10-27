@@ -1,18 +1,24 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.LoginRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.User;
+import br.com.DiegoCasemiroFS.distribuidora.exception.LoginNotSuccessfulException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.security.auth.login.LoginException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -27,6 +33,9 @@ class UsuarioServiceTest {
 
     @Mock
     private User user;
+
+    @Captor
+    private ArgumentCaptor<User> userCaptor;
 
     @Test
     @DisplayName("Verifica se tem um Id válido")
@@ -76,6 +85,73 @@ class UsuarioServiceTest {
 
         assertThrows(UserNotFoundException.class, () -> userService.findByEmail(email));
         verify(userRepository).findByEmail(email);
+    }
+
+    @Test
+    @DisplayName("Cria um usuário se ele não existir no banco")
+    void teste05() throws LoginException {
+
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
+        when(userRepository.save(any(User.class))).thenReturn(user);
+
+        userService.createUser(user);
+
+        verify(userRepository).save(userCaptor.capture());
+        User resultado = userCaptor.getValue();
+
+        assertNotNull(resultado);
+        assertEquals(user.getEmail(), resultado.getEmail());
+        verify(userRepository).findByEmail(user.getEmail());
+    }
+
+    @Test
+    @DisplayName("Verifica login com sucesso")
+    void teste06() {
+        LoginRequestDto dto = new LoginRequestDto();
+        dto.setEmail("teste@gmail.com");
+        dto.setPassword("1234");
+
+        User user = new User();
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
+
+        when(userRepository.findByEmail(dto.getEmail())).thenReturn(Optional.of(user));
+
+        User logado = userService.login(dto);
+
+        assertNotNull(logado);
+        assertEquals(dto.getEmail(), logado.getEmail());
+        assertEquals(dto.getPassword(), logado.getPassword());
+        verify(userRepository).findByEmail(dto.getEmail());
+    }
+
+    @Test
+    @DisplayName("Verifica login com usuário não existente")
+    void teste07() {
+        LoginRequestDto dto = new LoginRequestDto();
+        dto.setEmail("teste@gmail.com");
+        dto.setPassword("1234");
+
+        when(userRepository.findByEmail(dto.getEmail())).thenReturn(Optional.empty());
+
+        assertThrows(UserNotFoundException.class, () -> userService.login(dto));
+        verify(userRepository).findByEmail(dto.getEmail());
+    }
+
+    @Test
+    @DisplayName("Verifica login com senha incorreta")
+    void teste08() {
+        LoginRequestDto dto = new LoginRequestDto();
+        dto.setEmail("teste@gmail.com");
+        dto.setPassword("1234");
+
+        User naoLogado = new User();
+        naoLogado.setEmail(dto.getEmail());
+        naoLogado.setPassword("4321");
+
+        when(userRepository.findByEmail(dto.getEmail())).thenReturn(Optional.of(naoLogado));
+
+        assertThrows(LoginNotSuccessfulException.class, () -> userService.login(dto));
     }
 
 }
