@@ -1,6 +1,7 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity.product;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name", nullable = false, unique = true)
+    @NotBlank
     private String name;
 
     @Enumerated(EnumType.STRING)
