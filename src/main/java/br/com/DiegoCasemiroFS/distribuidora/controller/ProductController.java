@@ -38,9 +38,14 @@ public class ProductController {
         return ResponseEntity.ok(productService.updatePrice(id, priceRequestDto));
     }
 
-    @PutMapping("/updateStock/{id}")
-    public ResponseEntity<Product> updateStock(@PathVariable Long id, @RequestBody StockRequestDto stockRequestDto) {
-        return ResponseEntity.ok(productService.updateStock(id, stockRequestDto));
+    @PutMapping("/addStock/{id}")
+    public ResponseEntity<Product> addStock(@PathVariable Long id, @RequestBody StockRequestDto stockRequestDto) {
+        return ResponseEntity.ok(productService.addStock(id, stockRequestDto));
+    }
+
+    @PutMapping("/removeStock/{id}")
+    public ResponseEntity<Product> removeStock(@PathVariable Long id, @RequestBody StockRequestDto stockRequestDto) {
+        return ResponseEntity.ok(productService.removeStock(id, stockRequestDto));
     }
 
     @DeleteMapping("/deleteProduct/{id}")
