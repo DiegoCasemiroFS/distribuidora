@@ -3,6 +3,7 @@ package br.com.DiegoCasemiroFS.distribuidora.controller;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.User;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.LoginRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.UserRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.UserResponseDto;
 import br.com.DiegoCasemiroFS.distribuidora.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,12 +35,12 @@ public class UserController {
     }
 
     @PostMapping("/createUser")
-    public ResponseEntity<User> createUser(@RequestBody User user) throws LoginException {
+    public ResponseEntity<UserResponseDto> createUser(@RequestBody User user) throws LoginException {
         return ResponseEntity.ok(userService.createUser(user));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody LoginRequestDto requestDto) {
+    public ResponseEntity<UserResponseDto> login(@RequestBody LoginRequestDto requestDto) {
         return ResponseEntity.ok(userService.login(requestDto));
     }
 

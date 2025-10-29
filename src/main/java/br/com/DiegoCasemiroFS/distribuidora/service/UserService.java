@@ -3,10 +3,17 @@ package br.com.DiegoCasemiroFS.distribuidora.service;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.User;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.LoginRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.UserRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.UserResponseDto;
 import br.com.DiegoCasemiroFS.distribuidora.exception.LoginNotSuccessfulException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
+import br.com.DiegoCasemiroFS.distribuidora.infra.security.JwtService;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.LoginException;
@@ -14,10 +21,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+@RequiredArgsConstructor
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+
 
     public User findById(Long id){
         return userRepository.findById(id)
@@ -33,30 +44,37 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User createUser(User user) throws LoginException {
+    public UserResponseDto createUser(User user) throws LoginException {
         Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
 
         if (existingUser.isEmpty()){
             User newUser = new User();
             newUser.setName(user.getName());
             newUser.setEmail(user.getEmail());
-            newUser.setPassword(user.getPassword());
+            newUser.setPassword(passwordEncoder.encode(user.getPassword()));
             newUser.setPhone(user.getPhone());
             newUser.setAddress(user.getAddress());
             newUser.setUserType(user.getUserType());
             newUser.setAdmin(user.isAdmin());
 
-            return userRepository.save(newUser);
+            userRepository.save(newUser);
+
+            String token = jwtService.geraToken(user);
+            return new UserResponseDto(
+                    user.getEmail(),
+                    token,
+                    user.isAdmin());
         }
         throw new LoginException("Este Usuário já existe");
     }
 
-    public User login(LoginRequestDto requestDto) {
+    public UserResponseDto login(LoginRequestDto requestDto) {
         User user = userRepository.findByEmail(requestDto.getEmail())
                 .orElseThrow(UserNotFoundException::new);
 
-        if (requestDto.getPassword().equals(user.getPassword())){
-            return user;
+        if (passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
+            String token = jwtService.geraToken(user);
+            return new UserResponseDto(user.getName(), token, user.isAdmin());
         }
         throw new LoginNotSuccessfulException();
     }
@@ -72,5 +90,10 @@ public class UserService {
 
     public void deleteUser(Long id){
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
     }
 }

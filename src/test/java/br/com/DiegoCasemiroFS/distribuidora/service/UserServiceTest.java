@@ -3,6 +3,7 @@ package br.com.DiegoCasemiroFS.distribuidora.service;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.LoginRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.User;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.UserRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.UserResponseDto;
 import br.com.DiegoCasemiroFS.distribuidora.exception.LoginNotSuccessfulException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
@@ -121,11 +122,10 @@ class UserServiceTest {
 
         when(userRepository.findByEmail(dto.getEmail())).thenReturn(Optional.of(user));
 
-        User logado = userService.login(dto);
+        UserResponseDto logado = userService.login(dto);
 
         assertNotNull(logado);
         assertEquals(dto.getEmail(), logado.getEmail());
-        assertEquals(dto.getPassword(), logado.getPassword());
         verify(userRepository).findByEmail(dto.getEmail());
     }
 
