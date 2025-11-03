@@ -119,6 +119,16 @@ class UserServiceTest {
     }
 
     @Test
+    @DisplayName("retorna exception se o usuário já existir")
+    void teste05_1() {
+
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
+
+        assertThrows(LoginException.class, () -> userService.createUser(user));
+        verify(userRepository).findByEmail(user.getEmail());
+    }
+
+    @Test
     @DisplayName("Verifica tentativa de Login com sucesso")
     void teste06() {
         LoginRequestDto dto = new LoginRequestDto();
@@ -185,4 +195,17 @@ class UserServiceTest {
         assertNotNull(resultado);
         assertEquals(user.getEmail(), resultado.getEmail());
     }
+
+    @Test
+    @DisplayName("Retorna exception ao tentar atualizar um usuário inexistente")
+    void teste10() {
+
+        Long id = 1L;
+
+        when(userRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(UserNotFoundException.class, () -> userService.updateUser(id, userRequestDto));
+        verify(userRepository).findById(id);
+    }
+
 }
