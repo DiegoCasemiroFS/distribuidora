@@ -1,6 +1,7 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.product.CreateRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.product.PriceRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.product.Product;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProductAlreadyExistsException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProductNotFoundException;
@@ -39,6 +40,9 @@ class ProductServiceTest {
     @Captor
     private ArgumentCaptor<Product> productCaptor;
 
+    @Mock
+    private PriceRequestDto priceRequestDto;
+
     @Test
     @DisplayName("Verifica se o Produto tem um ID válido")
     void teste01(){
@@ -65,7 +69,7 @@ class ProductServiceTest {
     }
 
     @Test
-    @DisplayName("Verifica se o Produto já existe")
+    @DisplayName("Retorna exception ao tentar criar um Produto que já existe")
     void teste03(){
 
         when(productRepository.existsByNameIgnoreCase(createRequestDto.getName())).thenReturn(true);
@@ -90,4 +94,39 @@ class ProductServiceTest {
         assertEquals(newProduct.getName(), createRequestDto.getName());
         verify(productRepository).existsByNameIgnoreCase(createRequestDto.getName());
     }
+
+    @Test
+    @DisplayName("Atualiza o preço se o ID e o valor forem válidos")
+    void teste06(){
+
+        Long id = 1L;
+
+        when(productRepository.findById(id)).thenReturn(Optional.of(product));
+        when(productRepository.save(any(Product.class))).thenReturn(product);
+
+        productService.updatePrice(id, priceRequestDto);
+
+        verify(productRepository).findById(id);
+        verify(productRepository).save(productCaptor.capture());
+        Product newProduct = productCaptor.getValue();
+
+        assertNotNull(newProduct);
+        assertEquals(product.getId(), newProduct.getId());
+    }
+
+    //retorna exception se o id for invalido
+
+    //retorna exception se o valor for invalido
+
+    //adiciona estoque se o id e o valor forem validos
+
+    //retorna exception se o id for invalido
+
+    //retorna exception se o valor for invalido
+
+    //remove estoque se o id e o valor forem validos
+
+    //retorna exception se o id for invalido
+
+    //retorna exception se o valor for invalido
 }
