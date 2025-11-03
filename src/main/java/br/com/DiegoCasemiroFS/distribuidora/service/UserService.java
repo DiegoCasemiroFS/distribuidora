@@ -1,7 +1,7 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.users.User;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.LoginRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.User;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.UserRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.UserResponseDto;
 import br.com.DiegoCasemiroFS.distribuidora.exception.LoginNotSuccessfulException;
@@ -9,7 +9,6 @@ import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.infra.security.JwtService;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,8 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
@@ -74,7 +72,7 @@ public class UserService implements UserDetailsService {
 
         if (passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
             String token = jwtService.geraToken(user);
-            return new UserResponseDto(user.getName(), token, user.isAdmin());
+            return new UserResponseDto(user.getEmail(), token, user.isAdmin());
         }
         throw new LoginNotSuccessfulException();
     }

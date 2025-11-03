@@ -6,6 +6,7 @@ import br.com.DiegoCasemiroFS.distribuidora.entity.users.UserRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.UserResponseDto;
 import br.com.DiegoCasemiroFS.distribuidora.exception.LoginNotSuccessfulException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
+import br.com.DiegoCasemiroFS.distribuidora.infra.security.JwtService;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.security.auth.login.LoginException;
 import java.util.Optional;
@@ -36,11 +38,18 @@ class UserServiceTest {
     @Mock
     private User user;
 
+    @Mock
+    private UserRequestDto  userRequestDto;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private JwtService jwtService;
+
     @Captor
     private ArgumentCaptor<User> userCaptor;
 
-    @Mock
-    private UserRequestDto  userRequestDto;
 
     @Test
     @DisplayName("Verifica se o Usuário tem um Id válido")
@@ -121,6 +130,8 @@ class UserServiceTest {
         user.setPassword(dto.getPassword());
 
         when(userRepository.findByEmail(dto.getEmail())).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches(dto.getPassword(), user.getPassword())).thenReturn(true);
+        when(jwtService.geraToken(user)).thenReturn("token");
 
         UserResponseDto logado = userService.login(dto);
 
