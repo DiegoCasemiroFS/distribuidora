@@ -1,8 +1,8 @@
 package br.com.DiegoCasemiroFS.distribuidora.controller;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.StockMovement;
-import br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.StockMovementRequestDto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.StockMovementResponseDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.dto.StockMovementRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.dto.StockMovementResponseDto;
 import br.com.DiegoCasemiroFS.distribuidora.service.StockMovementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

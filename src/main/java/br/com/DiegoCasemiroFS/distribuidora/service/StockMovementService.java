@@ -2,10 +2,10 @@ package br.com.DiegoCasemiroFS.distribuidora.service;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.product.Product;
 import br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.StockMovement;
-import br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.StockMovementRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.dto.StockMovementRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.User;
-import br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.StockMovementResponseDto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.users.UserType;
+import br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.dto.StockMovementResponseDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.enums.UserType;
 import br.com.DiegoCasemiroFS.distribuidora.exception.StockMovementNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProductNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;

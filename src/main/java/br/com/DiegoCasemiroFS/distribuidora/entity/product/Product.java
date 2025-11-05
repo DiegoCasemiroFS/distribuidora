@@ -1,5 +1,6 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity.product;
 
+import br.com.DiegoCasemiroFS.distribuidora.entity.product.enums.ProductType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;

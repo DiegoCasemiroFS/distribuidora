@@ -1,4 +1,4 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity.product;
+package br.com.DiegoCasemiroFS.distribuidora.entity.product.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

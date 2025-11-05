@@ -1,9 +1,9 @@
 package br.com.DiegoCasemiroFS.distribuidora.controller;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.product.CreateRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.product.dto.CreateRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.product.Product;
-import br.com.DiegoCasemiroFS.distribuidora.entity.product.StockRequestDto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.product.PriceRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.product.dto.StockRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.product.dto.PriceRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

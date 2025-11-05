@@ -1,5 +1,6 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity.product;
+package br.com.DiegoCasemiroFS.distribuidora.entity.product.dto;
 
+import br.com.DiegoCasemiroFS.distribuidora.entity.product.enums.ProductType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

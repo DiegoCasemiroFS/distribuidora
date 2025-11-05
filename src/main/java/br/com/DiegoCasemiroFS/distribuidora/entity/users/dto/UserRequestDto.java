@@ -1,4 +1,4 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity.users;
+package br.com.DiegoCasemiroFS.distribuidora.entity.users.dto;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.address.Address;
 import lombok.AllArgsConstructor;

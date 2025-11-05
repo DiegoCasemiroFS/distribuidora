@@ -1,6 +1,7 @@
 package br.com.DiegoCasemiroFS.distribuidora.entity.users;
 
 import br.com.DiegoCasemiroFS.distribuidora.entity.address.Address;
+import br.com.DiegoCasemiroFS.distribuidora.entity.users.enums.UserType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement;
+package br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

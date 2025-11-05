@@ -1,4 +1,4 @@
-package br.com.DiegoCasemiroFS.distribuidora.entity.product;
+package br.com.DiegoCasemiroFS.distribuidora.entity.product.dto;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
