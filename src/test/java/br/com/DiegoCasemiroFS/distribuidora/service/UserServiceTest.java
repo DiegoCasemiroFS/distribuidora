@@ -52,8 +52,8 @@ class UserServiceTest {
 
 
     @Test
-    @DisplayName("Verifica se o Usuário tem um Id válido")
-    void teste01() {
+    @DisplayName("Deve retornar o usuário quando o ID for válido")
+    void shouldReturnUserWhenIdIsValid() {
         Long id = 1L;
 
         when(userRepository.findById(id)).thenReturn(Optional.of(user));
@@ -66,8 +66,8 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Retorna exception para um ID inválido")
-    void teste02() {
+    @DisplayName("Deve retornar UserNotFoundException quando o ID for inválido")
+    void shouldThrowUserNotFoundWhenIdIsInvalid() {
         Long id = 1L;
 
         when(userRepository.findById(id)).thenReturn(Optional.empty());
@@ -77,8 +77,8 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Verifica se um Email é válido")
-    void teste03() {
+    @DisplayName("Deve retornar o usuário quando o email for válido")
+    void shouldReturnUserWhenEmailIsValid() {
         String email = "teste@email.com";
 
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
@@ -91,8 +91,8 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Retorna exception quando o Email não é encontrado")
-    void teste04() {
+    @DisplayName("Deve retornar UserNotFoundException quando o email não for encontrado")
+    void shouldThrowUserNotFoundWhenEmailIsInvalid() {
         String email = "teste@email.com";
 
         when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
@@ -102,8 +102,8 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Cria um Usuário se ele não existir no banco")
-    void teste05() throws LoginException {
+    @DisplayName("Deve criar o usuário quando ele não existir no banco")
+    void shouldCreateUserWhenNotExists() throws LoginException {
 
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
         when(userRepository.save(any(User.class))).thenReturn(user);
@@ -119,8 +119,8 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("retorna exception se o usuário já existir")
-    void teste05_1() {
+    @DisplayName("Deve retornar LoginException quando o usuário já existir")
+    void shouldThrowWhenUserAlreadyExists() {
 
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
@@ -129,8 +129,8 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Verifica tentativa de Login com sucesso")
-    void teste06() {
+    @DisplayName("Deve retornar UserResponseDto quando credenciais forem válidas")
+    void shouldLoginSuccessfullyWhenCredentialsAreValid() {
         LoginRequestDto dto = new LoginRequestDto();
         dto.setEmail("teste@gmail.com");
         dto.setPassword("1234");
@@ -151,8 +151,8 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Verifica tentativa de Login com Usuário incorreto/inexistente")
-    void teste07() {
+    @DisplayName("Deve retornar UserNotFoundException quando o email for inexistente")
+    void shouldThrowUserNotFoundWhenLoginWithUnknownEmail() {
         LoginRequestDto dto = new LoginRequestDto();
         dto.setEmail("teste@gmail.com");
         dto.setPassword("1234");
@@ -164,8 +164,8 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Verifica tentativa de Login com Senha incorreta")
-    void teste08() {
+    @DisplayName("Deve retornar LoginNotSuccessfulException quando a senha for incorreta")
+    void shouldThrowLoginNotSuccessfulWhenPasswordIsIncorrect() {
         LoginRequestDto dto = new LoginRequestDto();
         dto.setEmail("teste@gmail.com");
         dto.setPassword("1234");
@@ -180,8 +180,8 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Verifica se os parametros para atualizar um Usuário estão corretos")
-    void teste09() {
+    @DisplayName("Deve atualizar o usuário quando os parâmetros forem válidos")
+    void shouldUpdateUserWhenParamsAreValid() {
         Long id = 1L;
 
         when(userRepository.findById(id)).thenReturn(Optional.of(user));
@@ -197,8 +197,8 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Retorna exception ao tentar atualizar um usuário inexistente")
-    void teste10() {
+    @DisplayName("Deve retornar UserNotFoundException ao tentar atualizar um usuário inexistente")
+    void shouldThrowUserNotFoundWhenUpdatingNonExistingUser() {
 
         Long id = 1L;
 
