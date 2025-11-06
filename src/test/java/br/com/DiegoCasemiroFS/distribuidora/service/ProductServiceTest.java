@@ -1,8 +1,9 @@
 package br.com.DiegoCasemiroFS.distribuidora.service;
 
-import br.com.DiegoCasemiroFS.distribuidora.entity.product.CreateRequestDto;
-import br.com.DiegoCasemiroFS.distribuidora.entity.product.PriceRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.product.dto.CreateRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.entity.product.dto.PriceRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.product.Product;
+import br.com.DiegoCasemiroFS.distribuidora.entity.product.dto.StockRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProductAlreadyExistsException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProductNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.ProductRepository;
@@ -15,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,8 +46,8 @@ class ProductServiceTest {
     private PriceRequestDto priceRequestDto;
 
     @Test
-    @DisplayName("Verifica se o Produto tem um ID válido")
-    void teste01(){
+    @DisplayName("Deve retornar o produto quando o ID for válido")
+    void shouldReturnProductWhenIdIsValid(){
         Long id = 1L;
 
         when(productRepository.findById(id)).thenReturn(Optional.of(product));
@@ -58,8 +60,8 @@ class ProductServiceTest {
     }
 
     @Test
-    @DisplayName("Retorna exception para um ID inválido")
-    void teste02(){
+    @DisplayName("Deve retornar ProductNotFoundException quando o ID for inválido")
+    void shouldThrowProductNotFoundWhenIdIsInvalid(){
         Long id = 1L;
 
         when(productRepository.findById(id)).thenReturn(Optional.empty());
@@ -69,8 +71,8 @@ class ProductServiceTest {
     }
 
     @Test
-    @DisplayName("Retorna exception ao tentar criar um Produto que já existe")
-    void teste03(){
+    @DisplayName("Deve retornar ProductAlreadyExistsException quando o produto já existir")
+    void shouldThrowProductAlreadyExistsWhenProductExists(){
 
         when(productRepository.existsByNameIgnoreCase(createRequestDto.getName())).thenReturn(true);
 
@@ -79,8 +81,8 @@ class ProductServiceTest {
     }
 
     @Test
-    @DisplayName("Cria um Produto se ele não existir")
-    void teste05(){
+    @DisplayName("Deve retornar o produto criado quando o produto não existir")
+    void shouldCreateProductWhenProductDoesNotExist(){
 
         when(productRepository.existsByNameIgnoreCase(createRequestDto.getName())).thenReturn(false);
         when(productRepository.save(any(Product.class))).thenReturn(product);
@@ -96,8 +98,8 @@ class ProductServiceTest {
     }
 
     @Test
-    @DisplayName("Atualiza o preço se o ID e o valor forem válidos")
-    void teste06(){
+    @DisplayName("Deve retornar o produto com preço atualizado quando ID e price forem válidos")
+    void shouldUpdatePriceWhenIdAndPriceAreValid(){
 
         Long id = 1L;
 
@@ -114,19 +116,95 @@ class ProductServiceTest {
         assertEquals(product.getId(), newProduct.getId());
     }
 
-    //retorna exception se o id for invalido
+    @Test
+    @DisplayName("Deve retornar ProductNotFoundException quando o ID for inválido")
+    void shouldThrowProductNotFoundWhenFindingByIdThatDoesNotExist(){
 
-    //retorna exception se o valor for invalido
+        Long id = 1L;
 
-    //adiciona estoque se o id e o valor forem validos
+        when(productRepository.findById(id)).thenReturn(Optional.empty());
 
-    //retorna exception se o id for invalido
+        assertThrows(ProductNotFoundException.class, () -> productService.findById(id));
+        verify(productRepository).findById(id);
 
-    //retorna exception se o valor for invalido
+    }
 
-    //remove estoque se o id e o valor forem validos
+    @Test
+    @DisplayName("Deve retornar RuntimeException quando price for zero")
+    void shouldThrowWhenPriceIsZero(){
 
-    //retorna exception se o id for invalido
+        Long id = 1L;
+        PriceRequestDto dto = new PriceRequestDto(BigDecimal.ZERO);
 
-    //retorna exception se o valor for invalido
+        when(productRepository.findById(id)).thenReturn(Optional.of(product));
+
+        assertThrows(RuntimeException.class, () -> productService.updatePrice(id, dto));
+
+        verify(productRepository).findById(id);
+    }
+
+    @Test
+    @DisplayName("Deve retornar RuntimeException quando price for negativo")
+    void shouldThrowWhenPriceIsNegative(){
+
+        Long id = 1L;
+        PriceRequestDto dto = new PriceRequestDto(BigDecimal.valueOf(-5.00));
+
+        when(productRepository.findById(id)).thenReturn(Optional.of(product));
+
+        assertThrows(RuntimeException.class, () -> productService.updatePrice(id, dto));
+
+        verify(productRepository).findById(id);
+    }
+
+        @Test
+    @DisplayName("Deve adicionar estoque quando o id e o valor forem válidos")
+    void shouldAddStockWhenIdAndValueAreValid() {
+
+        Long id = 1L;
+        StockRequestDto dto = new StockRequestDto(15);
+
+        when(product.getStock()).thenReturn(10);
+        when(productRepository.findById(id)).thenReturn(Optional.of(product));
+        when(productRepository.save(any(Product.class))).thenReturn(product);
+
+        productService.addStock(id, dto);
+
+        verify(productRepository).findById(id);
+        verify(product).setStock(25);
+        verify(productRepository).save(productCaptor.capture());
+        Product newProduct = productCaptor.getValue();
+
+        assertNotNull(newProduct);
+    }
+
+    @Test
+    @DisplayName("Deve retornar ProductNotFoundException quando o id for inválido ao adicionar estoque")
+    void shouldThrowProductNotFoundWhenAddingStockWithInvalidId() {
+        // TODO: implementar teste
+    }
+
+    @Test
+    @DisplayName("Deve retornar RuntimeException quando o valor for inválido ao adicionar estoque")
+    void shouldThrowWhenAddingStockWithInvalidValue() {
+        // TODO: implementar teste
+    }
+
+    @Test
+    @DisplayName("Deve remover estoque quando o id e o valor forem válidos")
+    void shouldRemoveStockWhenIdAndValueAreValid() {
+        // TODO: implementar teste
+    }
+
+    @Test
+    @DisplayName("Deve retornar ProductNotFoundException quando o id for inválido ao remover estoque")
+    void shouldThrowProductNotFoundWhenRemovingStockWithInvalidId() {
+        // TODO: implementar teste
+    }
+
+    @Test
+    @DisplayName("Deve retornar RuntimeException quando o valor for inválido ao remover estoque")
+    void shouldThrowWhenRemovingStockWithInvalidValue() {
+        // TODO: implementar teste
+    }
 }
