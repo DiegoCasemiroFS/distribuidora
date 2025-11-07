@@ -4,6 +4,8 @@ import br.com.DiegoCasemiroFS.distribuidora.entity.product.dto.CreateRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.product.dto.PriceRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.product.Product;
 import br.com.DiegoCasemiroFS.distribuidora.entity.product.dto.StockRequestDto;
+import br.com.DiegoCasemiroFS.distribuidora.exception.InsufficientStockException;
+import br.com.DiegoCasemiroFS.distribuidora.exception.InsufficientValueException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProductAlreadyExistsException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.ProductNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.ProductRepository;
@@ -139,7 +141,6 @@ class ProductServiceTest {
         when(productRepository.findById(id)).thenReturn(Optional.of(product));
 
         assertThrows(RuntimeException.class, () -> productService.updatePrice(id, dto));
-
         verify(productRepository).findById(id);
     }
 
@@ -153,7 +154,6 @@ class ProductServiceTest {
         when(productRepository.findById(id)).thenReturn(Optional.of(product));
 
         assertThrows(RuntimeException.class, () -> productService.updatePrice(id, dto));
-
         verify(productRepository).findById(id);
     }
 
@@ -181,30 +181,74 @@ class ProductServiceTest {
     @Test
     @DisplayName("Deve retornar ProductNotFoundException quando o id for inválido ao adicionar estoque")
     void shouldThrowProductNotFoundWhenAddingStockWithInvalidId() {
-        // TODO: implementar teste
+        Long id = 1L;
+        StockRequestDto dto = new StockRequestDto(15);
+
+        when(productRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(ProductNotFoundException.class, () -> productService.addStock(id, dto));
+        verify(productRepository).findById(id);
     }
 
     @Test
-    @DisplayName("Deve retornar RuntimeException quando o valor for inválido ao adicionar estoque")
-    void shouldThrowWhenAddingStockWithInvalidValue() {
-        // TODO: implementar teste
+    @DisplayName("Deve retornar InsufficientValueException quando o valor for inválido ao adicionar estoque")
+    void shouldThrowInsufficientValueWhenAddingStockWithInvalidValue() {
+        Long id = 1L;
+        StockRequestDto dto = new StockRequestDto(-15);
+
+        assertThrows(InsufficientValueException.class, () -> productService.addStock(id, dto));
     }
 
     @Test
     @DisplayName("Deve remover estoque quando o id e o valor forem válidos")
     void shouldRemoveStockWhenIdAndValueAreValid() {
-        // TODO: implementar teste
+        Long id = 1L;
+        StockRequestDto dto = new StockRequestDto(5);
+
+        when(product.getStock()).thenReturn(10);
+        when(productRepository.findById(id)).thenReturn(Optional.of(product));
+        when(productRepository.save(any(Product.class))).thenReturn(product);
+
+        productService.removeStock(id, dto);
+
+        verify(productRepository).findById(id);
+        verify(product).setStock(5);
+        verify(productRepository).save(productCaptor.capture());
+        Product newProduct = productCaptor.getValue();
+
+        assertNotNull(newProduct);
     }
 
     @Test
     @DisplayName("Deve retornar ProductNotFoundException quando o id for inválido ao remover estoque")
     void shouldThrowProductNotFoundWhenRemovingStockWithInvalidId() {
-        // TODO: implementar teste
+        Long id = 1L;
+        StockRequestDto dto = new StockRequestDto(15);
+
+        when(productRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(ProductNotFoundException.class, () -> productService.removeStock(id, dto));
+        verify(productRepository).findById(id);
     }
 
     @Test
-    @DisplayName("Deve retornar RuntimeException quando o valor for inválido ao remover estoque")
-    void shouldThrowWhenRemovingStockWithInvalidValue() {
-        // TODO: implementar teste
+    @DisplayName("Deve retornar InsufficientValueException quando o valor for inválido ao remover estoque")
+    void shouldThrowInsufficientValueWhenRemovingStockWithInvalidValue() {
+        Long id = 1L;
+        StockRequestDto dto = new StockRequestDto(-15);
+
+        assertThrows(InsufficientValueException.class, () -> productService.addStock(id, dto));
+    }
+
+    @Test
+    @DisplayName("Deve retornar InsufficientStockException quando quantity for maior que o Estoque atual")
+    void shouldThrowInsufficientStockWhenRemovingMoreThanAvailable(){
+        Long id = 1L;
+        StockRequestDto dto = new StockRequestDto(15);
+
+        when(product.getStock()).thenReturn(10);
+        when(productRepository.findById(id)).thenReturn(Optional.of(product));
+
+        assertThrows(InsufficientStockException.class, () -> productService.removeStock(id, dto));
     }
 }
