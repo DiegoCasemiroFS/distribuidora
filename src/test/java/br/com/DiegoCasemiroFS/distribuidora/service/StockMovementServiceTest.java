@@ -6,7 +6,9 @@ import br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.StockMovement;
 import br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.dto.StockMovementRequestDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.stockMovement.dto.StockMovementResponseDto;
 import br.com.DiegoCasemiroFS.distribuidora.entity.users.User;
+import br.com.DiegoCasemiroFS.distribuidora.exception.ProductNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.exception.StockMovementNotFoundException;
+import br.com.DiegoCasemiroFS.distribuidora.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.distribuidora.repository.ProductRepository;
 import br.com.DiegoCasemiroFS.distribuidora.repository.StockMovementRepository;
 import br.com.DiegoCasemiroFS.distribuidora.repository.UserRepository;
@@ -99,6 +101,58 @@ class StockMovementServiceTest {
         verify(productRepository).findById(productId);
         verify(productRepository).save(p);
         assertEquals(5, p.getStock());
+    }
+
+    @Test
+    @DisplayName("Deve retornar UserNotFoundException caso o usuário seja inválido")
+    void shouldThrowExceptionWhenUserIsNotValid(){
+
+        Long userId = 1L;
+        Long productId = 1L;
+
+        Product p = new Product();
+        p.setId(productId);
+        p.setName("nome");
+        p.setProductType(ProductType.OLEO_ESSENCIAL);
+        p.setPrice(BigDecimal.valueOf(49.99));
+        p.setStock(15);
+
+        StockMovementRequestDto dto = new StockMovementRequestDto();
+        dto.setUserId(userId);
+        dto.setProductId(productId);
+        dto.setQuantity(10);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        assertThrows(UserNotFoundException.class, () -> stockMovementService.saleToCostumer(dto));
+        verify(userRepository).findById(userId);
+    }
+
+    @Test
+    @DisplayName("Deve retornar ProductNotFoundException caso o produto seja inválido")
+    void shouldThrowExceptionWhenProductIsNotValid(){
+
+        Long userId = 1L;
+        Long productId = 1L;
+
+        Product p = new Product();
+        p.setId(productId);
+        p.setName("nome");
+        p.setProductType(ProductType.OLEO_ESSENCIAL);
+        p.setPrice(BigDecimal.valueOf(49.99));
+        p.setStock(15);
+
+        StockMovementRequestDto dto = new StockMovementRequestDto();
+        dto.setUserId(userId);
+        dto.setProductId(productId);
+        dto.setQuantity(10);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(productRepository.findById(productId)).thenReturn(Optional.empty());
+
+        assertThrows(ProductNotFoundException.class, () -> stockMovementService.saleToCostumer(dto));
+        verify(userRepository).findById(userId);
+        verify(productRepository).findById(productId);
     }
 
 }
